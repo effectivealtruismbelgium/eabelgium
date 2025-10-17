@@ -1,0 +1,53 @@
+---
+export interface Props {
+  class?: string;
+  padding?: boolean | number;
+  hover?: boolean;
+  href?: string;
+  external?: boolean;
+}
+
+const {
+  class: className = "",
+  padding = true,
+  hover = false,
+  href,
+  external = false,
+} = Astro.props;
+
+const baseClasses = "bg-white border border-base-border rounded-lg";
+const hoverClasses = hover
+  ? "hover:ring-2 hover:ring-base-200/50 transition-all"
+  : "";
+const paddingNumber = typeof padding === "number" ? padding : 6;
+const paddingClasses = padding ? `p-${paddingNumber}` : "";
+const hrefClasses = href ? "cursor-pointer group" : "";
+
+const allClasses = [
+  baseClasses,
+  hoverClasses,
+  paddingClasses,
+  hrefClasses,
+  className,
+]
+  .filter(Boolean)
+  .join(" ");
+---
+
+{
+  href ? (
+    <a
+      href={href}
+      class="block h-full"
+      target={external ? "_blank" : undefined}
+    >
+      <div class={allClasses}>
+        <slot />
+      </div>
+    </a>
+  ) : (
+    <div class={allClasses}>
+      <slot />
+    </div>
+  )
+}

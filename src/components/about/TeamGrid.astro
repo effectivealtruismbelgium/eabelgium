@@ -1,0 +1,10 @@
+---
+import { fetchAllOrdered } from "../../sanity/query";
+import TeamMember from "./TeamMember.astro";
+
+const teamMembers = await fetchAllOrdered("teamMember");
+---
+
+<div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+  {teamMembers.map((member) => <TeamMember data={member} />)}
+</div>

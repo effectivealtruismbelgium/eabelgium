@@ -1,0 +1,56 @@
+---
+import type { SanityDocument } from "@sanity/client";
+import { sanityClient } from "sanity:client";
+import ArticleCard from "../ArticleCard.astro";
+import ButtonLink from "../core/ButtonLink.astro";
+import { urlForImage } from "../../sanity/lib/url-for-image";
+
+type Props = {
+  currentArticleId?: string;
+  maxArticles?: number;
+};
+
+const { currentArticleId, maxArticles = 3 } = Astro.props;
+
+const ARTICLES_QUERY = `*[
+  _type == "article"
+  && defined(slug.current)
+  ${currentArticleId ? `&& slug.current != "${currentArticleId}"` : ""}
+]|order(publishedAt desc)[0...${maxArticles}]{_id, title, description, slug, image, category, publishedAt}`;
+
+const latestArticles =
+  await sanityClient.fetch<SanityDocument[]>(ARTICLES_QUERY);
+
+const gridClasses = `grid gap-8 mb-8 grid-cols-1 ${maxArticles <= 2 ? "md:grid-cols-2" : "md:grid-cols-2 lg:grid-cols-3"}`;
+---
+
+<div class="mx-auto max-w-6xl">
+  <div class={gridClasses}>
+    {
+      latestArticles.map((article) => (
+        <ArticleCard
+          title={article.title}
+          description={article.description}
+          image={
+            article.image
+              ? urlForImage(article.image)?.width(550).height(310).url()
+              : undefined
+          }
+          link={`/articles/${article.slug.current}/`}
+          category={article.category ?? "Article"}
+        />
+      ))
+    }
+  </div>
+
+  <div class="text-center">
+    <ButtonLink
+      href="/articles/"
+      variant="neutral"
+      class="inline-flex items-center"
+      icon="mdi:chevron-right"
+    >
+      View all articles
+    </ButtonLink>
+  </div>
+</div>

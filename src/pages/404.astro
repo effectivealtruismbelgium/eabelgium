@@ -1,0 +1,32 @@
+---
+import ButtonLink from "../components/core/ButtonLink.astro";
+import PageTitle from "../components/core/PageTitle.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Page not found" description="404 - Page not found">
+  <main
+    class="mx-auto flex min-h-[70vh] max-w-3xl items-center justify-center px-6 py-16"
+  >
+    <div class="text-center">
+      <div class="text-primary-600 mb-4 text-5xl font-bold">
+        <span>404</span>
+      </div>
+      <PageTitle center class="text-base-800 mb-4">
+        Oops! This page couldn't be found
+      </PageTitle>
+      <p class="text-base-600 mb-8 text-xl">
+        We couldn't find what you were looking for, but we can help you find the
+        most effective ways to make a difference.
+      </p>
+      <ButtonLink
+        href="/"
+        aria-label="EA Belgium logo"
+        variant="primary"
+        icon="mdi:chevron-right"
+      >
+        Go back to the home page
+      </ButtonLink>
+    </div>
+  </main>
+</BaseLayout>

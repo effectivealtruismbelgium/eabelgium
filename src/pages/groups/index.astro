@@ -1,0 +1,62 @@
+---
+import ButtonLink from "../../components/core/ButtonLink.astro";
+import CardContainer from "../../components/core/CardContainer.astro";
+import PageContainer from "../../components/core/PageContainer.astro";
+import PageTitle from "../../components/core/PageTitle.astro";
+import GroupCard from "../../components/GroupCard.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { urlForImage } from "../../sanity/lib/url-for-image";
+import { fetchAllOrdered } from "../../sanity/query";
+
+const groups = await fetchAllOrdered("localGroup");
+---
+
+<BaseLayout
+  title="Local Groups"
+  description="Connect with effective altruism communities across Belgium"
+>
+  <PageContainer>
+    <!-- Hero Section -->
+    <div class="mb-12 text-center">
+      <PageTitle center class="mb-6">Local groups</PageTitle>
+      <p class="text-base-600 mx-auto max-w-3xl text-xl">
+        Join one of our local effective altruism communities across Belgium.
+        Connect with like-minded individuals, attend events, and make a
+        difference together.
+      </p>
+    </div>
+
+    <!-- Groups Grid -->
+    <section class="mb-8">
+      <div class="grid gap-8 md:grid-cols-2">
+        {
+          groups.map((group) => (
+            <GroupCard
+              title={group.title || ""}
+              description={group.description || ""}
+              image={
+                group.image
+                  ? urlForImage(group.image)?.width(550).height(310).url()
+                  : undefined
+              }
+              imageAlt={group.imageAlt}
+              link={`/groups/${group.slug?.current || ""}/`}
+            />
+          ))
+        }
+      </div>
+    </section>
+    <CardContainer class="mx-auto max-w-xl text-center">
+      <h2 class="mb-4 text-2xl font-bold">
+        Can't find your city or university on the list?
+      </h2>
+      <p class="text-base-600 mb-6 w-full">
+        Why not start a group yourself? We're here to help you get started with
+        resources, guidance, and support.
+      </p>
+      <ButtonLink href="mailto:info@eabelgium.org" icon="mdi:chevron-right">
+        Get in Touch
+      </ButtonLink>
+    </CardContainer>
+  </PageContainer>
+</BaseLayout>

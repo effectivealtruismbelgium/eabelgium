@@ -1,0 +1,120 @@
+---
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+import CardContainer from "../components/core/CardContainer.astro";
+import PageTitle from "../components/core/PageTitle.astro";
+import ProseWrapper from "../components/ProseWrapper.astro";
+import { urlForImage } from "../sanity/lib/url-for-image";
+import type { LocalGroup } from "../sanity/sanity.types";
+import BaseLayout from "./BaseLayout.astro";
+import PageContainer from "../components/core/PageContainer.astro";
+
+type Props = {
+  group: LocalGroup;
+};
+
+const { group } = Astro.props;
+
+const imageUrl = group.image
+  ? urlForImage(group.image)?.width(1000).height(310).url()
+  : undefined;
+
+const contactEmail = undefined; // TODO: add contact email
+---
+
+<BaseLayout
+  title={group.title || ""}
+  description={group.description || ""}
+  imageUrl={imageUrl}
+>
+  <PageContainer>
+    {
+      imageUrl && (
+        <div class="mb-8">
+          <Image
+            src={imageUrl}
+            alt={group.imageAlt || group.title || null}
+            width={1000}
+            height={400}
+            class="h-64 w-full rounded-lg object-cover shadow-lg md:h-80"
+          />
+          {group.imageCredit && (
+            <p class="text-base-500 mt-2 text-center text-xs italic">
+              {group.imageCredit}
+            </p>
+          )}
+        </div>
+      )
+    }
+
+    <div class="mb-8">
+      <PageTitle class="mb-4">{group.title}</PageTitle>
+      <p class="text-base-600 mb-6 text-xl">{group.description}</p>
+
+      <!-- Group Info Cards -->
+      <div class="mb-8 grid gap-6 md:grid-cols-2">
+        <!-- Location & Meeting Info -->
+        <CardContainer padding={4}>
+          <h3 class="mb-4 flex items-center gap-2 text-lg font-semibold">
+            <Icon name="mdi:map-marker" class="text-primary-600 h-5 w-5" />
+            Group information
+          </h3>
+          <div class="text-base-700 space-y-2">
+            <p><strong>Location:</strong> {group.location}</p>
+          </div>
+        </CardContainer>
+
+        <!-- Contact & Social -->
+        <CardContainer padding={4}>
+          <h3 class="mb-4 flex items-center gap-2 text-lg font-semibold">
+            <Icon name="mdi:account-group" class="text-primary-600 h-5 w-5" />
+            Get connected
+          </h3>
+          <div class="space-y-3">
+            {
+              contactEmail && (
+                <a
+                  href={`mailto:${contactEmail}`}
+                  class="text-primary-600 hover:text-primary-700 flex items-center gap-2 transition-colors"
+                >
+                  <Icon name="mdi:email" class="h-4 w-4" />
+                  Email us
+                </a>
+              )
+            }
+            {
+              group.lumaUrl && (
+                <a
+                  href={group.lumaUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-primary-600 hover:text-primary-700 flex items-center gap-2 transition-colors"
+                >
+                  <Icon name="mdi:calendar" class="h-4 w-4" />
+                  Join our events
+                </a>
+              )
+            }
+            {
+              group.facebookUrl && (
+                <a
+                  href={group.facebookUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-primary-600 hover:text-primary-700 flex items-center gap-2 transition-colors"
+                >
+                  <Icon name="mdi:facebook" class="h-4 w-4" />
+                  Facebook group
+                </a>
+              )
+            }
+          </div>
+        </CardContainer>
+      </div>
+    </div>
+
+    <ProseWrapper>
+      <slot />
+    </ProseWrapper>
+  </PageContainer>
+</BaseLayout>

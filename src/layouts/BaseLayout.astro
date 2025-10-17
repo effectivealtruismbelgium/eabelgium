@@ -1,0 +1,37 @@
+---
+import FallbackImage from "../assets/blog-placeholder-1.jpg";
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import { SITE_TITLE } from "../consts";
+import { SEO, type Props as SeoProps } from "astro-seo";
+
+interface Props {
+  title: string;
+  description: string;
+  image?: ImageMetadata;
+  imageUrl?: string;
+  ogType?: "website" | "article";
+  seoProps?: SeoProps;
+}
+
+const { title, description, image, imageUrl, ogType, seoProps } = Astro.props;
+const pageTitle = `${title} | ${SITE_TITLE}`;
+---
+
+<html lang="en">
+  <BaseHead
+    title={pageTitle}
+    description={description}
+    image={image}
+    imageUrl={imageUrl}
+    ogType={ogType}
+    seoProps={seoProps}
+  />
+
+  <body class="bg-background text-base-900">
+    <Header />
+    <slot />
+    <Footer />
+  </body>
+</html>

@@ -1,0 +1,51 @@
+---
+title: "About us"
+description: "About Effective Altruism Belgium"
+layout: "../layouts/PageLayout.astro"
+---
+
+import eagFlandersCrowd from "../assets/eag-flanders-crowd.jpg";
+import TeamGrid from "../components/about/TeamGrid.astro";
+import ValuesGrid from "../components/about/ValuesGrid.astro";
+import { Image } from "astro:assets";
+
+## Our mission
+
+Effective Altruism Belgium is a community of people across Belgium who want to use evidence, reason, and compassion to make a meaningful difference in the world. Our mission is to connect and support individuals who care about impact, helping them explore the most pressing global challenges and take effective action. As part of the global effective altruism movement, we envision a world where more people dedicate their time, skills, and resources to solving the problems that matter most.
+
+<figure class="flex flex-col items-center">
+  <Image
+    src={eagFlandersCrowd}
+    alt="EA Flanders crowd"
+    width={1000}
+    height={1000}
+    class="mx-auto aspect-video h-64 w-auto rounded-xl object-cover"
+  />
+  <figcaption>EAGxFlanders conference in 2016</figcaption>
+</figure>
+
+## Our values
+
+We strive to live these principles in how we think, decide, and work together.
+
+<div class="not-prose mt-8">
+  <ValuesGrid />
+</div>
+
+## Our team
+
+EA Belgium is a volunteer‑led non‑profit (ASBL/VZW) with organisers across the country. Here are some of the people keeping things running.
+
+<div class="not-prose mt-8">
+  <TeamGrid />
+</div>
+
+## Code of conduct
+
+We want to create a welcoming environment for everyone and foster a place where everyone is respected. We strive to be empathetic, considerate, and respectful as a community.
+We encourage the exchange of opinions and ideas and welcome constructive disagreement, but we do not tolerate insults or personal attacks.
+We do not accept any form of discrimination or exclusion (for example, based on race, ethnic or social origin, gender, language, religion or belief, political opinion, disability, age, or sexual orientation). We do not tolerate harassment of others, such as bullying or unwelcome sexual attention. If you find yourself experiencing any harassment, you're welcome to report it to <a href="https://docs.google.com/forms/d/e/1FAIpQLScJooJD0Sm2csCYgd0Is6FkpyQa3ket8IIcFzd_FcTRU7avRg/viewform" class="text-primary-600 hover:underline">CEA's Community health team</a> (anonymously is possible).
+
+## Contact us
+
+We're always looking for new ways to connect with people interested in effective altruism. If you have any questions, feedback, or want to get involved, please don't hesitate to contact us: [info@eabelgium.org](mailto:info@eabelgium.org)

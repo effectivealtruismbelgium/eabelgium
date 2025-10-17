@@ -1,0 +1,26 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "trailingSlash": true,
+  "redirects": [
+    {
+      "source": "/donate/",
+      "destination": "/articles/donating/",
+      "permanent": true
+    },
+    {
+      "source": "/donaties/",
+      "destination": "/articles/donating/",
+      "permanent": true
+    },
+    {
+      "source": "/vlaanderen/",
+      "destination": "/groups/vlaanderen/",
+      "permanent": true
+    },
+    {
+      "source": "/brussels/",
+      "destination": "/groups/brussels/",
+      "permanent": true
+    }
+  ]
+}

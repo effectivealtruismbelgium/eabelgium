@@ -1,0 +1,53 @@
+---
+import { Image, Picture } from "astro:assets";
+import CardContainer from "./core/CardContainer.astro";
+import ButtonLink from "./core/ButtonLink.astro";
+import { Icon } from "astro-icon/components";
+
+type Props = {
+  title: string;
+  description: string;
+  image?: string;
+  link: string;
+  category: string;
+};
+
+const { title, description, image, link, category } = Astro.props;
+---
+
+<CardContainer hover padding={false} class="overflow-hidden" href={link}>
+  <div
+    class="from-primary-100 to-primary-200 relative overflow-hidden bg-gradient-to-br"
+  >
+    {
+      image && (
+        <img
+          src={image}
+          alt={title}
+          class="aspect-video h-full w-full object-cover"
+        />
+      )
+    }
+    <div class="absolute top-4 left-4">
+      <span
+        class="text-primary-700 rounded-full bg-white/90 px-3 py-1 text-sm font-medium backdrop-blur-sm"
+      >
+        {category}
+      </span>
+    </div>
+  </div>
+  <div class="flex flex-col gap-2 p-6">
+    <h3 class="font-display text-base-900 line-clamp-2 text-lg font-semibold">
+      {title}
+    </h3>
+    <p class="text-base-600 mb-1 line-clamp-3">
+      {description}
+    </p>
+    <div
+      class="text-base-600 group-hover:text-primary-600 mt-auto inline-flex items-center gap-1 transition-colors"
+    >
+      <span class="text-sm font-medium">Read more</span>
+      <Icon name="mdi:chevron-right" class="h-4 w-4" />
+    </div>
+  </div>
+</CardContainer>

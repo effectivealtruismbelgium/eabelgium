@@ -1,0 +1,23 @@
+---
+import PortableText from "../components/core/PortableText.astro";
+import PageContainer from "../components/core/PageContainer.astro";
+import PageTitle from "../components/core/PageTitle.astro";
+import FormattedDate from "../components/FormattedDate.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { fetchOne, getStaticPathsForType } from "../sanity/query";
+import PageLayout from "../layouts/PageLayout.astro";
+
+export async function getStaticPaths(): Promise<any> {
+  return await getStaticPathsForType("page", Astro.params);
+}
+
+const page = await fetchOne("page", Astro.params);
+---
+
+<PageLayout
+  title={page.title ?? ""}
+  description={page.description ?? ""}
+  lastUpdated={page.updatedAt ? new Date(page.updatedAt) : undefined}
+>
+  <PortableText value={page.body} />
+</PageLayout>

@@ -1,0 +1,204 @@
+---
+import { Icon } from "astro-icon/components";
+import ButtonLink from "../components/core/ButtonLink.astro";
+import CardContainer from "../components/core/CardContainer.astro";
+import PageTitle from "../components/core/PageTitle.astro";
+import NewsletterSection from "../components/home/NewsletterSection.astro";
+import Section from "../components/Section.astro";
+import { LUMA_URL, WELCOME_FORM_URL, WHATSAPP_URL } from "../consts";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Get involved"
+  description="Get involved with Effective Altruism Belgium"
+>
+  <section
+    class="from-primary-200/30 via-base-50/30 to-secondary-100 bg-gradient-to-b"
+  >
+    <div
+      class="border-base-border border-b bg-[url('/line-in-motion.svg')] bg-center bg-repeat px-6 pt-16 pb-16"
+    >
+      <div class="flex flex-col items-center justify-center px-4 text-center">
+        <PageTitle center class="mx-auto mb-6 max-w-3xl">
+          Join a community of people working to
+          <span
+            class="from-primary-600 to-primary-500 bg-gradient-to-br bg-clip-text text-transparent"
+          >
+            make the world better
+          </span>
+        </PageTitle>
+        <p
+          class="text-base-600 mb-8 max-w-2xl text-lg leading-relaxed md:text-xl"
+        >
+          Whether you’re completely new to effective altruism or already
+          familiar with the ideas, we’d love to help you find your place in the
+          community.
+        </p>
+        <ButtonLink
+          href={WELCOME_FORM_URL}
+          variant="primary"
+          external
+          icon="mdi:chevron-right"
+        >
+          Fill the 2‑minute form
+        </ButtonLink>
+        <p class="text-base-600 mx-auto mt-6 max-w-lg text-sm">
+          Fill only what you're comfortable with. We'll never share your data
+          outside EA Belgium without your consent.
+        </p>
+      </div>
+
+      <div
+        class="text-base-800 mx-auto mt-12 grid max-w-4xl gap-8 text-center md:grid-cols-3"
+      >
+        <CardContainer class="flex flex-col items-center">
+          <Icon name="mdi:compass-outline" class="mb-4 h-10 w-10" />
+          <h3 class="mb-2 font-semibold">Get guidance</h3>
+          <p class="text-base-600 text-sm">
+            Explore cause areas, career options, or projects with the help of
+            experienced community members.
+          </p>
+        </CardContainer>
+
+        <CardContainer class="flex flex-col items-center">
+          <Icon name="mdi:account-group" class="mb-4 h-10 w-10" />
+          <h3 class="mb-2 font-semibold">Grow your network</h3>
+          <p class="text-base-600 text-sm">
+            Connect with others in Belgium who care about making a difference
+          </p>
+        </CardContainer>
+
+        <CardContainer class="flex flex-col items-center">
+          <Icon name="mdi:briefcase-search" class="mb-4 h-10 w-10" />
+
+          <h3 class="mb-2 font-semibold">Receive tailored opportunities</h3>
+          <p class="text-base-600 text-sm">
+            Get job openings, opportunities & events matched to your profile.
+          </p>
+        </CardContainer>
+      </div>
+    </div>
+  </section>
+
+  <div class="bg-background space-y-12 px-6 pt-12 pb-8">
+    <section>
+      <div class="mb-8 flex justify-center">
+        <Icon
+          name="mdi:chevron-double-down"
+          class="text-base-800/50 h-12 w-12"
+        />
+      </div>
+      <div class="mx-auto max-w-5xl text-center">
+        <h2 class="mb-12 text-3xl font-bold">What happens next</h2>
+        <div class="grid gap-10 sm:grid-cols-1 lg:grid-cols-3">
+          <!-- Step 1 -->
+          <CardContainer>
+            <span
+              class="bg-primary-600 mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full text-2xl font-bold text-white"
+              >1</span
+            >
+            <h3 class="mb-2 text-xl font-semibold">You submit the form</h3>
+            <p class="text-base-600">
+              Gives us context on who you are and what you're looking for.
+            </p>
+          </CardContainer>
+
+          <!-- Step 2 -->
+          <CardContainer>
+            <span
+              class="bg-primary-600 mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full text-2xl font-bold text-white"
+              >2</span
+            >
+            <h3 class="mb-2 text-xl font-semibold">
+              We email you within 48 hours
+            </h3>
+            <p class="text-base-600">
+              Includes a link to schedule a 30-min 1-on-1 call (if requested).
+            </p>
+          </CardContainer>
+          <!-- Step 4 -->
+          <CardContainer>
+            <span
+              class="bg-primary-600 mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full text-2xl font-bold text-white"
+              >3</span
+            >
+            <h3 class="mb-2 text-xl font-semibold">Personalised guidance</h3>
+            <p class="text-base-600">
+              We'll help you find the best opportunities to make a difference.
+            </p>
+          </CardContainer>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="mb-8 flex justify-center">
+        <Icon
+          name="mdi:chevron-double-down"
+          class="text-base-800/50 h-12 w-12"
+        />
+      </div>
+      <div class="mx-auto max-w-6xl text-center">
+        <h2 class="mb-12 text-3xl font-bold">In the meantime</h2>
+        <div class="grid gap-8 md:grid-cols-3">
+          <!-- Card 1 -->
+          <CardContainer>
+            <h3 class="mb-2 text-xl font-semibold">Dive into key resources</h3>
+            <p class="text-base-600 mb-4">
+              Start with our 30‑minute introduction to Effective Altruism.
+            </p>
+            <ButtonLink
+              href="/resources/"
+              variant="text"
+              icon="mdi:chevron-right">Explore resources</ButtonLink
+            >
+          </CardContainer>
+          <CardContainer>
+            <h3 class="mb-2 text-xl font-semibold">Join an upcoming event</h3>
+            <p class="text-base-600 mb-4">
+              Meet like‑minded people at our next meetup.
+            </p>
+            <ButtonLink
+              href={LUMA_URL}
+              external
+              variant="text"
+              icon="mdi:chevron-right">See events</ButtonLink
+            >
+          </CardContainer>
+          <CardContainer>
+            <h3 class="mb-2 text-xl font-semibold">
+              Hop into the WhatsApp community
+            </h3>
+            <p class="text-base-600 mb-4">
+              Talk to 100+ members of the community.
+            </p>
+            <ButtonLink
+              href={WHATSAPP_URL}
+              external
+              variant="text"
+              icon="mdi:chevron-right">Join the chat</ButtonLink
+            >
+          </CardContainer>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL CTA STRIP -->
+    <Section id="cta" class="bg-background pt-8 text-center">
+      <h2 class="mb-8 text-2xl font-semibold md:text-3xl">
+        Ready to explore your impact?
+      </h2>
+      <ButtonLink
+        href={WELCOME_FORM_URL}
+        variant="primary"
+        external
+        icon="mdi:chevron-right"
+      >
+        Fill out the form
+      </ButtonLink>
+    </Section>
+
+    <NewsletterSection />
+  </div>
+</BaseLayout>

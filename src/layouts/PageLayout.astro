@@ -1,0 +1,47 @@
+---
+import PageContainer from "../components/core/PageContainer.astro";
+import PageTitle from "../components/core/PageTitle.astro";
+import FormattedDate from "../components/FormattedDate.astro";
+import NewsletterSection from "../components/home/NewsletterSection.astro";
+import ProseWrapper from "../components/ProseWrapper.astro";
+import BaseLayout from "./BaseLayout.astro";
+
+type BaseProps = {
+  title: string;
+  description: string;
+  lastUpdated?: Date;
+};
+
+type Props =
+  | BaseProps
+  | {
+      frontmatter: BaseProps;
+    };
+
+const { title, description, lastUpdated } =
+  "frontmatter" in Astro.props ? Astro.props.frontmatter : Astro.props;
+---
+
+<BaseLayout title={title} description={description}>
+  <PageContainer>
+    <PageTitle center class="mb-12 px-4">{title}</PageTitle>
+    {
+      lastUpdated && (
+        <p class="not-prose mb-8 text-sm text-gray-600">
+          Last updated: <FormattedDate date={new Date(lastUpdated)} />
+        </p>
+      )
+    }
+    <ProseWrapper>
+      <slot />
+    </ProseWrapper>
+
+    <div class="mt-16 flex items-center justify-center">
+      <div class="bg-base-300 h-px w-24"></div>
+      <span class="text-base-400 mx-3">✦</span>
+      <div class="bg-base-300 h-px w-24"></div>
+    </div>
+
+    <NewsletterSection />
+  </PageContainer>
+</BaseLayout>

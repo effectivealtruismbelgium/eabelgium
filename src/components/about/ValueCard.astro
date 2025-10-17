@@ -1,0 +1,22 @@
+---
+import { Icon } from "astro-icon/components";
+import CardContainer from "../core/CardContainer.astro";
+
+interface Props {
+  icon: string;
+  title: string;
+  tagline: string;
+}
+
+const { icon, title, tagline } = Astro.props as Props;
+---
+
+<CardContainer padding={false} class="p-4">
+  <div class="flex flex-col gap-2">
+    <Icon name={icon} class="text-primary-700 mx-auto h-8 w-8" />
+    <h3 class="text-primary-700 text-center text-lg leading-tight font-bold">
+      {title}
+    </h3>
+    <p class="text-base-600 mt-1 text-center">{tagline}</p>
+  </div>
+</CardContainer>

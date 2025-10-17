@@ -1,0 +1,14 @@
+---
+import PortableText from "../../components/core/PortableText.astro";
+import GroupLayout from "../../layouts/GroupLayout.astro";
+import { fetchOne, getStaticPathsForType } from "../../sanity/query";
+
+export async function getStaticPaths(): Promise<{ params: { slug: string } }> {
+  return await getStaticPathsForType("localGroup", Astro.params);
+}
+const group = await fetchOne("localGroup", Astro.params);
+---
+
+<GroupLayout group={group}>
+  <PortableText value={group.body} />
+</GroupLayout>

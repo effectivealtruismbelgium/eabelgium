@@ -1,0 +1,41 @@
+---
+import CharityCard from "./CharityCard.astro";
+import { urlForImage } from "../../sanity/lib/url-for-image";
+import { fetchAllCauseAreasWithCharities } from "../../sanity/query";
+
+const causeAreasWithCharities = await fetchAllCauseAreasWithCharities();
+---
+
+<div class="space-y-12">
+  {
+    causeAreasWithCharities.map((causeArea) => {
+      const charities = causeArea.charities;
+      if (!charities || charities.length === 0) return null;
+
+      return (
+        <div>
+          <h2 class="text-base-800 border-base-200 mb-6 border-b pb-2 text-2xl font-semibold">
+            {causeArea.name}
+          </h2>
+          <div class="grid items-stretch gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {charities.map((charity) => (
+              <CharityCard
+                name={charity.name || ""}
+                program={charity.program || ""}
+                description={charity.description || ""}
+                logo={
+                  charity.logo
+                    ? urlForImage(charity.logo)?.width(256).height(256).url()
+                    : undefined
+                }
+                href={`/charities/${charity.slug?.current}/`}
+                recommendedBy={charity.recommendedBy}
+                taxDeductible={charity.isTaxDeductible || false}
+              />
+            ))}
+          </div>
+        </div>
+      );
+    })
+  }
+</div>

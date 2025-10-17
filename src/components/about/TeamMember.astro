@@ -1,0 +1,58 @@
+---
+import { Image } from "astro:assets";
+import CardContainer from "../core/CardContainer.astro";
+import { urlForImage } from "../../sanity/lib/url-for-image";
+import type { TeamMember as TeamMemberType } from "../../sanity/sanity.types";
+
+type Props = {
+  data: TeamMemberType;
+};
+
+const { data } = Astro.props;
+---
+
+<CardContainer class="group p-4" padding={false}>
+  <div class="flex items-center gap-4">
+    <div
+      class="bg-base-300 aspect-square h-20 w-20 shrink-0 overflow-hidden rounded-full"
+    >
+      {
+        data.image ? (
+          <img
+            src={urlForImage(data.image)?.width(256).height(256).url()}
+            alt={`${data.name} - ${data.role}`}
+            class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+            width={256}
+            height={256}
+          />
+        ) : (
+          <div class="bg-base-300 flex h-full w-full items-center justify-center">
+            <span class="text-base-500 text-xs">No image</span>
+          </div>
+        )
+      }
+    </div>
+    <div>
+      <h3 class="text-base-900 text-lg leading-tight font-semibold">
+        {
+          data.linkedinUrl ? (
+            <a
+              href={data.linkedinUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="hover:underline"
+            >
+              {data.name}
+            </a>
+          ) : (
+            data.name
+          )
+        }
+      </h3>
+      <p class="text-base-600">{data.role}</p>
+    </div>
+  </div>
+  <p class="text-base-600 mt-4 text-sm">
+    {data.description}
+  </p>
+</CardContainer>

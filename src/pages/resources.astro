@@ -1,0 +1,154 @@
+---
+import { Icon } from "astro-icon/components";
+import BaseHead from "../components/BaseHead.astro";
+import PageTitle from "../components/core/PageTitle.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import LatestArticlesSection from "../components/home/LatestArticlesSection.astro";
+import ResourceCard from "../components/ResourceCard.astro";
+import Section from "../components/Section.astro";
+import { SITE_TITLE } from "../consts";
+
+const pageTitle = `Resources | ${SITE_TITLE}`;
+const pageDescription =
+  "Essential resources for learning about effective altruism, career planning, and making a positive impact";
+---
+
+<!doctype html>
+<html lang="en">
+  <BaseHead title={pageTitle} description={pageDescription} />
+  <body class="bg-background">
+    <Header />
+    <main class="my-16 space-y-16">
+      <!-- Hero Section -->
+      <section id="hero">
+        <div class="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+          <PageTitle center class="mb-6"> Essential resources </PageTitle>
+          <p class="text-base-600 mx-auto max-w-3xl text-xl">
+            Discover the most valuable resources for learning about effective
+            altruism, planning your career, and maximising your positive impact
+            on the world.
+          </p>
+        </div>
+        <!-- INSERT_YOUR_CODE -->
+        <div class="mt-8 flex justify-center">
+          <span class="animate-bounce">
+            <Icon name="mdi:arrow-down" class="text-base-600 h-8 w-8" />
+          </span>
+        </div>
+      </section>
+
+      <!-- Getting Started Section -->
+      <section id="getting-started">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h2 class="mb-12 text-center text-3xl font-bold">
+            Getting started with <span class="text-primary-600"
+              >effective altruism</span
+            >
+          </h2>
+          <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            <ResourceCard
+              title="Introduction to effective altruism"
+              description="Watch this short video for a friendly introduction to effective altruism and its core principles."
+              href="https://www.youtube.com/watch?v=WyprXhvGVYk&t=12s"
+              type="video"
+              external={true}
+            />
+
+            <ResourceCard
+              title="Introduction to EA"
+              description="Learn the core principles and philosophy behind effective altruism."
+              href="https://www.effectivealtruism.org/articles/introduction-to-effective-altruism"
+              type="guide"
+              external={true}
+            />
+
+            <ResourceCard
+              title="EA Handbook"
+              description="A comprehensive guide covering the key concepts, cause areas, and approaches in effective altruism."
+              href="https://www.effectivealtruism.org/handbook"
+              type="guide"
+              external={true}
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- Career Resources Section -->
+      <section id="career-resources">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h2 class="mb-12 text-center text-3xl font-bold">
+            <span class="text-primary-600">Career</span> resources
+          </h2>
+          <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            <ResourceCard
+              title="Career guide (Probably Good)"
+              description="The ultimate guide to choosing a career that makes a difference. Learn how to maximise your impact through your career choices."
+              href="https://probablygood.org/career-guide/"
+              type="guide"
+              external={true}
+            />
+
+            <ResourceCard
+              title="Impactful career profiles"
+              description="Find out what careers are most impactful and how to get started in them."
+              href="https://probablygood.org/career-profiles/"
+              type="tool"
+              external={true}
+            />
+
+            <ResourceCard
+              title="80,000 Hours Job Board"
+              description="Find high-impact jobs and volunteer opportunities in effective altruism organisations."
+              href="https://80000hours.org/job-board/"
+              type="job-board"
+              external={true}
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- Donating Section -->
+      <section id="donating">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h2 class="mb-12 text-center text-3xl font-bold">
+            <span class="text-primary-600">Donating</span> effectively
+          </h2>
+          <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            <ResourceCard
+              title="Giving What We Can"
+              description="The world's leading community of people giving effectively to tackle global challenges. Take the pledge and find recommended charities."
+              href="https://www.givingwhatwecan.org/"
+              type="guide"
+              external={true}
+            />
+
+            <ResourceCard
+              title="Effectief Geven"
+              description="(NL) De Belgische organisatie voor effectief geven. Vind de meest effectieve goede doelen en maximaliseer de impact van je donaties."
+              href="https://www.effectiefgeven.be/"
+              type="guide"
+              external={true}
+            />
+
+            <ResourceCard
+              title="Our guide to effective giving in Belgium"
+              description="Learn how to choose impactful charities and maximise your donations through Belgian tax deductibility benefits."
+              href="/articles/donating/"
+              type="article"
+              external={false}
+            />
+          </div>
+        </div>
+      </section>
+
+      <Section id="our-articles">
+        <h2 class="mb-12 text-center text-3xl font-bold">
+          Our <span class="text-primary-600">articles</span>
+        </h2>
+        <LatestArticlesSection />
+      </Section>
+    </main>
+    <Footer />
+  </body>
+</html>

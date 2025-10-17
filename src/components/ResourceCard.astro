@@ -1,0 +1,136 @@
+---
+import { Icon } from "astro-icon/components";
+import CardContainer from "./core/CardContainer.astro";
+import ButtonLink from "./core/ButtonLink.astro";
+
+export interface Props {
+  title: string;
+  description: string;
+  href: string;
+  type: "article" | "video" | "guide" | "website" | "tool" | "job-board";
+  image?: string;
+  category?: string;
+  external?: boolean;
+}
+
+const {
+  title,
+  description,
+  href,
+  type,
+  image,
+  category,
+  external = false,
+} = Astro.props;
+
+const typeConfig = {
+  article: {
+    icon: "mdi:file-document-outline",
+    iconBg: "bg-primary-100",
+    iconColor: "text-primary-600",
+    tagBg: "bg-primary-100",
+    tagColor: "text-primary-700",
+    linkColor: "text-primary-600",
+    linkHover: "hover:text-primary-700",
+  },
+  video: {
+    icon: "mdi:play-circle-outline",
+    iconBg: "bg-secondary-100",
+    iconColor: "text-secondary-600",
+    tagBg: "bg-secondary-100",
+    tagColor: "text-secondary-700",
+    linkColor: "text-secondary-600",
+    linkHover: "hover:text-secondary-700",
+  },
+  guide: {
+    icon: "mdi:book-open-outline",
+    iconBg: "bg-primary-100",
+    iconColor: "text-primary-600",
+    tagBg: "bg-primary-100",
+    tagColor: "text-primary-700",
+    linkColor: "text-primary-600",
+    linkHover: "hover:text-primary-700",
+  },
+  website: {
+    icon: "mdi:web",
+    iconBg: "bg-secondary-100",
+    iconColor: "text-secondary-600",
+    tagBg: "bg-secondary-100",
+    tagColor: "text-secondary-700",
+    linkColor: "text-secondary-600",
+    linkHover: "hover:text-secondary-700",
+  },
+  tool: {
+    icon: "mdi:tools",
+    iconBg: "bg-tertiary-100",
+    iconColor: "text-tertiary-600",
+    tagBg: "bg-tertiary-100",
+    tagColor: "text-tertiary-700",
+    linkColor: "text-tertiary-600",
+    linkHover: "hover:text-tertiary-700",
+  },
+  "job-board": {
+    icon: "mdi:briefcase-outline",
+    iconBg: "bg-secondary-100",
+    iconColor: "text-secondary-600",
+    tagBg: "bg-secondary-100",
+    tagColor: "text-secondary-700",
+    linkColor: "text-secondary-600",
+    linkHover: "hover:text-secondary-700",
+  },
+};
+
+const config = typeConfig[type];
+---
+
+<CardContainer
+  padding={false}
+  hover
+  href={href}
+  external={external}
+  class="h-full overflow-hidden"
+>
+  {
+    image && (
+      <div class="from-primary-100 to-secondary-100 aspect-video overflow-hidden bg-gradient-to-br">
+        <img src={image} alt={title} class="h-full w-full object-cover" />
+      </div>
+    )
+  }
+
+  <div class="flex h-full flex-col p-6">
+    <div class="mb-4 flex items-center justify-between">
+      <div
+        class={`w-10 h-10 ${config.iconBg} rounded-lg flex items-center justify-center`}
+      >
+        <Icon name={config.icon} class={`w-5 h-5 ${config.iconColor}`} />
+      </div>
+
+      {
+        category && (
+          <span
+            class={`${config.tagBg} ${config.tagColor} rounded px-2.5 py-0.5 text-xs font-medium capitalize`}
+          >
+            {category}
+          </span>
+        )
+      }
+    </div>
+
+    <h3 class="text-base-900 mb-3 line-clamp-2 flex-shrink-0 text-xl font-bold">
+      {title}
+    </h3>
+
+    <p class="text-base-600 mb-4 line-clamp-3 flex-grow">
+      {description}
+    </p>
+    <div
+      class="text-base-600 group-hover:text-primary-600 mt-auto inline-flex items-center gap-1 transition-colors"
+    >
+      <span class="text-sm font-medium"
+        >{external ? "Visit resource" : "Read Article"}</span
+      >
+      <Icon name="mdi:chevron-right" class="h-4 w-4" />
+    </div>
+  </div></CardContainer
+>

@@ -1,0 +1,17 @@
+---
+export interface Props {
+  class?: string;
+  center?: boolean;
+}
+
+const { class: className = "", center = false, ...rest } = Astro.props;
+
+const centerClasses = center ? "text-center" : "";
+
+const classes =
+  `font-bold text-3xl sm:text-4xl lg:text-5xl ${centerClasses} ${className}`.trim();
+---
+
+<h1 class={classes} {...rest}>
+  <slot />
+</h1>

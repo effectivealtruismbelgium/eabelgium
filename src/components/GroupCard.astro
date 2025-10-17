@@ -1,0 +1,59 @@
+---
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import CardContainer from "./core/CardContainer.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  image?: ImageMetadata | string;
+  imageAlt?: string;
+  link: string;
+}
+
+const { title, description, image, imageAlt, link } = Astro.props;
+---
+
+<CardContainer class="group" hover padding={false}>
+  <a href={link} class="block h-full">
+    {
+      image && (
+        <div class="relative overflow-hidden rounded-t-lg">
+          {typeof image === "string" ? (
+            <img
+              src={image}
+              alt={imageAlt || title}
+              class="h-48 w-full object-cover transition-transform duration-300 group-hover:scale-105"
+            />
+          ) : (
+            <Image
+              src={image}
+              alt={imageAlt || title}
+              width={600}
+              height={300}
+              class="h-48 w-full object-cover transition-transform duration-300 group-hover:scale-105"
+            />
+          )}
+        </div>
+      )
+    }
+
+    <div class="p-4">
+      <div class="mb-3 flex items-start justify-between">
+        <h3
+          class="text-base-900 group-hover:text-primary-600 text-xl font-bold transition-colors"
+        >
+          {title}
+        </h3>
+        <Icon
+          name="mdi:arrow-right"
+          class="text-base-400 group-hover:text-primary-600 ml-2 h-5 w-5 flex-shrink-0 transition-colors"
+        />
+      </div>
+
+      <p class="text-base-600 line-clamp-3">
+        {description}
+      </p>
+    </div>
+  </a>
+</CardContainer>

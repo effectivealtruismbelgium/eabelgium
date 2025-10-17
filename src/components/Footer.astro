@@ -1,0 +1,143 @@
+---
+import { Icon } from "astro-icon/components";
+import LogoInverse from "../assets/ea-belgium-logo-inverse.svg";
+import {
+  FACEBOOK_URL,
+  INSTAGRAM_URL,
+  LINKEDIN_URL,
+  LUMA_URL,
+  SUBSTACK_URL,
+  WHATSAPP_URL,
+} from "../consts";
+
+const socialMediaLinks = [
+  {
+    url: FACEBOOK_URL,
+    label: "Facebook",
+    iconName: "mdi:facebook",
+  },
+  {
+    url: INSTAGRAM_URL,
+    label: "Instagram",
+    iconName: "mdi:instagram",
+  },
+  {
+    url: LINKEDIN_URL,
+    label: "LinkedIn",
+    iconName: "mdi:linkedin",
+  },
+  {
+    url: WHATSAPP_URL,
+    label: "WhatsApp",
+    iconName: "mdi:whatsapp",
+  },
+  {
+    url: LUMA_URL,
+    label: "Event calendar",
+    iconName: "mdi:calendar-outline",
+  },
+  {
+    url: SUBSTACK_URL,
+    label: "Newsletter",
+    iconName: "mdi:email-heart-outline",
+  },
+];
+
+const footerLinks = [
+  {
+    title: "Explore",
+    links: [
+      { label: "About us", href: "/about/" },
+      { label: "Resources to learn more", href: "/resources/" },
+      { label: "Recommended charities", href: "/charities/" },
+    ],
+  },
+  {
+    title: "Community",
+    links: [
+      { label: "Get involved", href: "/get-involved/" },
+
+      { label: "Local groups", href: "/groups/" },
+      { label: "Event calendar", href: LUMA_URL },
+      { label: "WhatsApp community", href: WHATSAPP_URL },
+    ],
+  },
+];
+---
+
+<!-- Footer -->
+<footer class="bg-base-800 text-base-50">
+  <div class="mx-auto max-w-6xl px-8 pt-12 pb-8">
+    <div class="flex flex-col gap-8 lg:flex-row">
+      <!-- Organization Info -->
+      <div class="flex flex-auto flex-col items-start gap-2">
+        <LogoInverse class="h-14 w-auto" />
+
+        <p class="text-base-300 max-w-md text-sm">
+          Effectief Altruïsme België VZW is a registered non-profit in Belgium.
+          Company number BE 0689.778.777.
+        </p>
+        <!-- Email contact -->
+        <a
+          href="mailto:info@eabelgium.org"
+          class="text-base-400 font-light transition-colors hover:text-white"
+        >
+          info@eabelgium.org
+        </a>
+        <!-- Social media -->
+        <div class="mt-2 flex space-x-4">
+          {
+            socialMediaLinks.map((social) => (
+              <a
+                href={social.url}
+                class="text-base-300 transition-colors hover:text-white"
+              >
+                <span class="sr-only">{social.label}</span>
+                <Icon name={social.iconName} class="h-6 w-6" />
+              </a>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- Links columns -->
+      <div class="flex flex-col gap-4 sm:flex-row sm:gap-12">
+        {
+          footerLinks.map((section) => (
+            <div class="flex-shrink-0">
+              <h3 class="mb-2 font-semibold text-white md:mb-3">
+                {section.title}
+              </h3>
+              <ul class="space-y-1">
+                {section.links.map((link) => (
+                  <li>
+                    <a
+                      href={link.href}
+                      class="text-base-300 text-sm transition-colors hover:text-white"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div
+      class="border-base-700 mt-6 flex flex-col items-center justify-between border-t pt-4 md:flex-row"
+    >
+      <p class="text-base-400 text-sm">© 2025 Effective Altruism Belgium</p>
+      <div class="mt-4 flex space-x-6 md:mt-0">
+        <a
+          href="/privacy-policy/"
+          class="text-base-400 text-sm transition-colors hover:text-white"
+          >Privacy policy</a
+        >
+      </div>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,30 @@
+---
+import PortableText from "../../components/core/PortableText.astro";
+import ArticleLayout from "../../layouts/ArticleLayout.astro";
+import { urlForImage } from "../../sanity/lib/url-for-image";
+import { fetchOne, getStaticPathsForType } from "../../sanity/query";
+
+export async function getStaticPaths(): Promise<{ params: { slug: string } }> {
+  return await getStaticPathsForType("article", Astro.params);
+}
+
+const article = await fetchOne("article", Astro.params);
+
+const articleImageUrl = article.image
+  ? urlForImage(article.image)?.width(1000).height(310).url()
+  : null;
+---
+
+<ArticleLayout
+  id={article.slug.current}
+  title={article.title}
+  description={article.description}
+  pubDate={new Date(article.publishedAt)}
+  updatedDate={new Date(article.updatedAt)}
+  coverImage={articleImageUrl ?? undefined}
+  coverImageAlt={article.coverImageAlt}
+  coverImageCredit={article.coverImageCredit}
+  category={article.category}
+>
+  <PortableText value={article.body} />
+</ArticleLayout>

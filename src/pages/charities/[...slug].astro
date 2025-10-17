@@ -1,0 +1,174 @@
+---
+import { Icon } from "astro-icon/components";
+import ProseWrapper from "../../components/ProseWrapper.astro";
+import QrCodeGenerator from "../../components/charity/QrCodeGenerator";
+import { Content as TgeExplanation } from "../../components/charity/tgeExplanation.md";
+import ButtonLink from "../../components/core/ButtonLink.astro";
+import CardContainer from "../../components/core/CardContainer.astro";
+import Pill from "../../components/core/Pill.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { urlForImage } from "../../sanity/lib/url-for-image";
+import { fetchOne, getStaticPathsForType } from "../../sanity/query";
+
+export async function getStaticPaths(): Promise<{ params: { slug: string } }> {
+  return await getStaticPathsForType("charity", Astro.params);
+}
+
+const charity = await fetchOne("charity", Astro.params);
+
+const {
+  name,
+  program,
+  description,
+  logo,
+  website,
+  kbfBankReference,
+  isTaxDeductible,
+  donationPartner,
+  recommendedBy,
+} = charity;
+---
+
+<BaseLayout
+  title={name || ""}
+  description={description || ""}
+  imageUrl={logo ? urlForImage(logo)?.width(512).height(512).url() : undefined}
+>
+  <div class="mx-auto max-w-5xl px-4 py-6 sm:px-6 sm:py-8 md:px-8 md:py-10">
+    <!-- Back link -->
+    <div class="mb-8">
+      <a
+        href="/charities"
+        class="text-base-600 hover:text-primary-600 inline-flex items-center gap-2 transition-colors"
+      >
+        <Icon name="mdi:chevron-left" class="h-4 w-4" />
+        <span>Back to all charities</span>
+      </a>
+    </div>
+
+    <!-- Header -->
+    <div class="mb-12">
+      <div
+        class="mb-6 flex flex-col items-center gap-6 text-center sm:flex-row sm:items-start sm:text-left"
+      >
+        <div
+          class="border-base-border group h-32 w-32 overflow-hidden rounded-lg border"
+        >
+          {
+            logo && (
+              <img
+                src={urlForImage(logo)?.width(256).height(256).url()}
+                alt={`${name} logo`}
+                class="h-fit w-fit object-contain transition-transform duration-300 group-hover:scale-105"
+                width={256}
+                height={256}
+              />
+            )
+          }
+        </div>
+
+        <div class="flex-1">
+          <h1 class="text-base-800 mb-1 text-3xl font-bold">{name}</h1>
+          <p class="text-base-600 mb-3 text-lg font-medium">{program}</p>
+          <div class="flex flex-col items-center gap-2 sm:flex-row">
+            {
+              recommendedBy && (
+                <Pill variant="primary" icon="mdi:star">
+                  Recommended by {recommendedBy}
+                </Pill>
+              )
+            }
+            {
+              isTaxDeductible ? (
+                <Pill variant="tertiary" icon="mdi:check">
+                  This charity is tax deductible in Belgium
+                </Pill>
+              ) : (
+                <Pill variant="secondary" icon="mdi:alert">
+                  This charity is not tax deductible in Belgium
+                </Pill>
+              )
+            }
+          </div>
+        </div>
+      </div>
+
+      <p class="text-base-600 text-lg leading-relaxed">{description}</p>
+
+      <div class="text-base-600 mt-4 text-sm">
+        {
+          donationPartner == "hia" && (
+            <span>
+              Note: To benefit from tax deductibility, donations must be made
+              through Effectief Geven rather than directly on the charity’s
+              website.
+            </span>
+          )
+        }
+      </div>
+
+      <!-- Action buttons -->
+      <div class="mt-6 flex flex-wrap gap-4">
+        {
+          donationPartner == "hia" && (
+            <ButtonLink
+              href="https://www.effectiefgeven.be/doneer"
+              variant="primary"
+              external={true}
+            >
+              Donate via Effectief Geven
+              <Icon name="mdi:open-in-new" class="h-4 w-4" />
+            </ButtonLink>
+          )
+        }
+        {
+          website && (
+            <ButtonLink href={website} variant="neutral" external={true}>
+              Visit website
+              <Icon name="mdi:open-in-new" class="h-4 w-4" />
+            </ButtonLink>
+          )
+        }
+      </div>
+
+      <!-- Donation section -->
+      {
+        kbfBankReference && donationPartner == "tge" && (
+          <CardContainer padding class="mb-8">
+            <QrCodeGenerator
+              client:load
+              defaultAmount={25}
+              reference={kbfBankReference}
+              charityName={name || ""}
+            />
+          </CardContainer>
+        )
+      }
+
+      {
+        kbfBankReference && donationPartner && (
+          <div id="how-it-works">
+            <ProseWrapper>
+              <h3>How does it work?</h3>
+              <p>
+                {name} is an effective charity operating outside of Belgium.
+                This means that, by default, donations to this charity are not
+                tax deductible in Belgium.
+              </p>
+
+              {donationPartner == "tge" && <TgeExplanation />}
+
+              <p>
+                If you prefer, you can also donate directly to {name} through{" "}
+                <a href={website} target="_blank">
+                  their website
+                </a>{" "}
+                (without the tax deduction).
+              </p>
+            </ProseWrapper>
+          </div>
+        )
+      }
+    </div>
+  </div>
+</BaseLayout>

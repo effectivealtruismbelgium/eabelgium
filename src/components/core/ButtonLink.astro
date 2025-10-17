@@ -1,0 +1,50 @@
+---
+import { Icon } from "astro-icon/components";
+
+export interface Props {
+  href: string;
+  variant?: "primary" | "neutral" | "text";
+  size?: "small" | "medium" | "large";
+  class?: string;
+  external?: boolean;
+  icon?: string;
+}
+
+const {
+  href,
+  variant = "primary",
+  size = "medium",
+  class: className = "",
+  external = false,
+  icon,
+  ...rest
+} = Astro.props;
+
+const isText = variant === "text";
+const baseClasses = `w-fit inline-flex flex-row justify-center items-center rounded-lg transition-all text-center ${isText ? "" : "hover:scale-105"}`;
+
+const sizeClasses = {
+  small: `text-base font-medium gap-1  ${isText ? "" : "px-4 py-2"}`,
+  medium: `text-base font-semibold gap-2 ${isText ? "" : "px-6 py-3"}`,
+  large: `text-lg font-semibold gap-2 ${isText ? "" : "px-6 py-3"}`,
+};
+
+const variantClasses = {
+  primary:
+    "bg-primary-600 hover:bg-primary-700 text-white shadow-sm hover:shadow-md",
+  neutral: "bg-surface text-base-800  bg-surface border-1 border-base-border",
+  text: "text-primary-600 hover:underline bg-transparent",
+};
+
+const classes = `${baseClasses} ${sizeClasses[size]} ${variantClasses[variant]} ${className}`;
+---
+
+<a
+  href={href}
+  class={classes}
+  target={external ? "_blank" : undefined}
+  {...rest}
+>
+  <slot />
+  {icon && <Icon name={icon} size={20} class="h-5 w-5" is:inline />}
+</a>

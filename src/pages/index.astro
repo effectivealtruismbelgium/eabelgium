@@ -1,0 +1,195 @@
+---
+import { Icon } from "astro-icon/components";
+import talkImage from "../assets/eag-flanders-panel.jpg";
+import groupImage from "../assets/eag-london-group.jpg";
+import guidanceImage from "../assets/guidance.jpg";
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import ImageCard from "../components/ImageCard.astro";
+import Section from "../components/Section.astro";
+import ButtonLink from "../components/core/ButtonLink.astro";
+import EventsSection from "../components/home/EventsSection.astro";
+import LatestArticlesSection from "../components/home/LatestArticlesSection.astro";
+import NewsletterSection from "../components/home/NewsletterSection.astro";
+import LogoIcon from "../assets/ea-belgium-icon.svg";
+import {
+  LUMA_URL,
+  SITE_DESCRIPTION,
+  SITE_TITLE,
+  WHATSAPP_URL,
+} from "../consts";
+
+const pageTitle = `${SITE_TITLE} | ${SITE_DESCRIPTION}`;
+---
+
+<!doctype html>
+<html lang="en">
+  <BaseHead title={pageTitle} description={SITE_DESCRIPTION} />
+  <body class="bg-background">
+    <Header />
+    <main>
+      <Hero />
+
+      <div class="space-y-20 pt-20 pb-8">
+        <Section id="what-is-ea">
+          <div class="mx-auto max-w-6xl px-2">
+            <div class="mb-16 text-center">
+              <h2 class="mb-4 text-3xl font-bold">
+                What is <span class="text-primary-600">effective altruism?</span
+                >
+              </h2>
+              <p class="text-base-600 mx-auto max-w-3xl text-xl">
+                A philosophy and social movement that uses evidence and careful
+                reasoning to determine the most effective ways to benefit
+                others.
+              </p>
+            </div>
+            <div class="grid gap-8 md:grid-cols-3">
+              <div class="group text-center">
+                <div
+                  class="from-primary-100 to-primary-200 mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br transition-transform group-hover:scale-110"
+                >
+                  <Icon
+                    name="mdi:lightbulb-on-outline"
+                    class="text-primary-600 h-8 w-8"
+                  />
+                </div>
+                <h3 class="text-base-900 mb-3 text-xl font-bold">
+                  Evidence-based
+                </h3>
+                <p class="text-base-600">
+                  We use rigorous research and data to identify where we can do
+                  the most good with limited resources.
+                </p>
+              </div>
+              <div class="group text-center">
+                <div
+                  class="from-secondary-100 to-secondary-200 mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br transition-transform group-hover:scale-110"
+                >
+                  <Icon
+                    name="mdi:heart-outline"
+                    class="text-secondary-600 h-8 w-8"
+                  />
+                </div>
+                <h3 class="text-base-900 mb-3 text-xl font-bold">Impartial</h3>
+                <p class="text-base-600">
+                  We care about the wellbeing of all beings, regardless of
+                  species, or their distance from us in time or space.
+                </p>
+              </div>
+              <div class="group text-center">
+                <div
+                  class="from-tertiary-100 to-tertiary-200 mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br transition-transform group-hover:scale-110"
+                >
+                  <Icon
+                    name="mdi:trending-up"
+                    class="text-tertiary-600 h-8 w-8"
+                  />
+                </div>
+                <h3 class="text-base-900 mb-3 text-xl font-bold">
+                  Maximising impact
+                </h3>
+                <p class="text-base-600">
+                  We focus on interventions with the highest expected value,
+                  considering scale, neglectedness, and tractability.
+                </p>
+              </div>
+            </div>
+            <div class="mt-12 flex justify-center">
+              <ButtonLink href="/resources/" variant="neutral">
+                Read more about effective altruism
+              </ButtonLink>
+            </div>
+          </div>
+        </Section>
+
+        <Section id="who-we-are">
+          <div class="flex items-center justify-center">
+            <div class="bg-base-300 h-px w-24"></div>
+            <span class="text-base-400 mx-3">✦</span>
+            <div class="bg-base-300 h-px w-24"></div>
+          </div>
+          <div class="mx-auto max-w-5xl px-2 py-8">
+            <div class="mx-auto mb-4 flex max-w-md flex-row items-center gap-2">
+              <LogoIcon class="h-16 w-fit flex-shrink-0" />
+              <h2 class="text-2xl leading-tight font-semibold">
+                We are the <span class="text-primary-600">Belgian</span> community
+                of a global movement
+              </h2>
+            </div>
+            <p class="text-base-600 mx-auto max-w-2xl text-center text-lg">
+              As part of the global effective altruism movement, we bring
+              together people in Belgium to explore ideas, build community, and
+              take action on the world's most pressing challenges.
+            </p>
+          </div>
+
+          <div class="flex items-center justify-center">
+            <div class="bg-base-300 h-[1.2px] w-64"></div>
+          </div>
+        </Section>
+
+        <Section id="what-we-do">
+          <div class="mx-auto max-w-5xl">
+            <div class="mb-12">
+              <h2 class="mb-4 text-center text-3xl font-bold">What we do</h2>
+              <p class="text-base-600 mx-auto max-w-2xl text-center text-xl">
+                We create spaces to meet like-minded people, share ideas, and
+                explore ways of doing good together.
+              </p>
+            </div>
+            <div class="grid gap-8 md:grid-cols-3">
+              <ImageCard
+                image={groupImage}
+                alt="Effective Altruism Group"
+                title="Community & Connection"
+                description="Meet people across Belgium who share your values and want to make a difference."
+                href={WHATSAPP_URL}
+                external
+                buttonText="Join our WhatsApp"
+              />
+              <ImageCard
+                image={talkImage}
+                alt="Effective Altruism Group"
+                title="Events & Activities"
+                description="Join talks, workshops, and meetups to learn, connect, and explore new ideas."
+                href={LUMA_URL}
+                external
+                buttonText="Our events"
+              />
+              <ImageCard
+                image={guidanceImage}
+                alt="Photo of a man holding a pen"
+                title="Resources & Guidance"
+                description="Access knowledge, opportunities, and support to help you increase your impact."
+                buttonText="Get guidance"
+                href="/get-involved/"
+              />
+            </div>
+            <div class="mt-8 flex justify-center">
+              <ButtonLink href="/about/" variant="neutral">
+                Learn more about us
+              </ButtonLink>
+            </div>
+          </div>
+        </Section>
+
+        <EventsSection />
+        <!-- Latest Articles Section -->
+
+        <Section id="articles" class="mb-8">
+          <h2 class="mb-8 text-center text-3xl font-bold">
+            Our latest <span class="text-primary-600">articles</span>
+          </h2>
+
+          <LatestArticlesSection />
+        </Section>
+
+        <NewsletterSection />
+      </div>
+    </main>
+    <Footer />
+  </body>
+</html>

@@ -1,0 +1,37 @@
+---
+import { Icon } from "astro-icon/components";
+
+export interface Props {
+  icon?: string;
+  variant?: "primary" | "neutral" | "secondary" | "tertiary";
+  size?: "sm" | "md";
+  class?: string;
+}
+
+const {
+  icon,
+  variant = "primary",
+  size = "sm",
+  class: className = "",
+} = Astro.props;
+
+const baseClasses =
+  "w-fit inline-flex items-center rounded-full font-medium border";
+const sizeClasses = {
+  sm: "px-2 py-1 text-xs",
+  md: "px-3 py-2 text-sm",
+};
+const variantClasses = {
+  primary: "bg-primary-100 text-primary-700 border-primary-200",
+  neutral: "bg-base-100 text-base-600 border-base-200",
+  secondary: "bg-secondary-100 text-secondary-700 border-secondary-200",
+  tertiary: "bg-tertiary-100 text-tertiary-700 border-tertiary-200",
+};
+
+const classes = `${baseClasses} ${sizeClasses[size]} ${variantClasses[variant]} ${className}`;
+---
+
+<span class={classes}>
+  {icon && <Icon name={icon} class="mr-1 h-3 w-3" />}
+  <slot />
+</span>

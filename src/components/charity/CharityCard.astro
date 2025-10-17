@@ -1,0 +1,78 @@
+---
+import { Icon } from "astro-icon/components";
+import CardContainer from "../core/CardContainer.astro";
+import Pill from "../core/Pill.astro";
+
+export interface Props {
+  name: string;
+  program: string;
+  description: string;
+  logo?: string;
+  href?: string;
+  recommendedBy: string;
+  taxDeductible: boolean;
+}
+
+const { name, program, description, logo, href, recommendedBy, taxDeductible } =
+  Astro.props;
+---
+
+<CardContainer
+  padding={false}
+  hover={true}
+  href={href}
+  class="group flex h-full cursor-pointer flex-col p-4"
+>
+  <div class="mb-4">
+    {
+      recommendedBy && (
+        <Pill variant="primary" icon="mdi:star">
+          Recommended by {recommendedBy}
+        </Pill>
+      )
+    }
+    {
+      !recommendedBy && (
+        <Pill variant="neutral" icon="mdi:sprout">
+          Promising charity
+        </Pill>
+      )
+    }
+  </div>
+  <div class="mb-1 flex h-full items-start gap-4">
+    {
+      logo && (
+        <div class="h-16 w-16 flex-shrink-0 overflow-hidden rounded-full">
+          <img
+            src={logo}
+            alt={`${name} logo`}
+            class="h-fit w-fit object-contain transition-transform group-hover:scale-105"
+          />
+        </div>
+      )
+    }
+    <div class="flex h-full flex-1 flex-col">
+      <h3 class="text-base-900 text-lg font-semibold">{name}</h3>
+      <p class="text-base-600 mb-3 text-sm font-medium">{program}</p>
+    </div>
+  </div>
+  <div>
+    <p class="text-base-600 mb-3 line-clamp-3 text-sm leading-relaxed">
+      {description}
+    </p>
+    <div
+      class="text-base-600 group-hover:text-primary-600 mt-auto inline-flex items-center gap-1 transition-colors"
+    >
+      <span class="text-sm font-medium">Donate</span>
+      <Icon name="mdi:chevron-right" class="h-4 w-4" />
+
+      {
+        !taxDeductible && (
+          <Pill variant="secondary" icon="mdi:alert">
+            Not tax deductible
+          </Pill>
+        )
+      }
+    </div>
+  </div>
+</CardContainer>

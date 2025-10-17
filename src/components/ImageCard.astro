@@ -1,0 +1,78 @@
+---
+import { Picture } from "astro:assets";
+import type { ImageMetadata } from "astro";
+import CardContainer from "./core/CardContainer.astro";
+import ButtonLink from "./core/ButtonLink.astro";
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  image: ImageMetadata;
+  alt: string;
+  title: string;
+  description: string;
+  href?: string;
+  buttonText?: string;
+  external?: boolean;
+  width?: number;
+  height?: number;
+  class?: string;
+}
+
+const {
+  image,
+  alt,
+  title,
+  description,
+  href,
+  external,
+  buttonText = "Learn more",
+  width = 720,
+  height = 498,
+  class: additionalClasses,
+} = Astro.props;
+---
+
+<CardContainer
+  padding={false}
+  href={href}
+  external={external}
+  hover
+  class={`group overflow-hidden border border-base-border flex flex-col ${additionalClasses}`}
+>
+  <div class="relative">
+    <div class="relative">
+      <Picture
+        src={image}
+        alt={alt}
+        class="aspect-21/9 w-full rounded-t-lg object-cover transition-transform duration-300"
+        width={width}
+        height={height}
+      />
+      <div
+        class="bg-base-900/40 pointer-events-none absolute inset-0 flex items-center justify-center rounded-t-lg"
+      >
+        <div class="px-6 text-center">
+          <h3 class="text-xl font-bold text-white">
+            {title}
+          </h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-grow flex-col rounded-b-lg bg-white p-4">
+    <p class="text-base-600 mb-4 flex-grow text-center">
+      {description}
+    </p>
+
+    <div class="mt-auto text-center">
+      {
+        href && (
+          <div class="text-base-600 group-hover:text-primary-600 inline-flex items-center gap-1 transition-colors">
+            <span class="text-sm font-medium">{buttonText}</span>
+            <Icon name="mdi:chevron-right" class="h-4 w-4" />
+          </div>
+        )
+      }
+    </div>
+  </div>
+</CardContainer>

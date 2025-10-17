@@ -1,0 +1,47 @@
+---
+import type { SanityDocument } from "@sanity/client";
+import { sanityClient } from "sanity:client";
+import ArticleCard from "../../components/ArticleCard.astro";
+import PageTitle from "../../components/core/PageTitle.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { urlForImage } from "../../sanity/lib/url-for-image";
+import PageContainer from "../../components/core/PageContainer.astro";
+import { fetchAll } from "../../sanity/query";
+
+const ARTICLES_QUERY = `*[
+  _type == "article"
+  && defined(slug.current)
+]|order(publishedAt desc)`;
+
+const articles = await sanityClient.fetch<SanityDocument[]>(ARTICLES_QUERY);
+---
+
+<BaseLayout
+  title="Articles"
+  description="Our articles about Effective Altruism"
+>
+  <PageContainer width="sm">
+    <PageTitle center class="mb-12">
+      Our <span class="text-primary-600">articles</span>
+    </PageTitle>
+    <section>
+      <div class="grid gap-8 md:grid-cols-2">
+        {
+          articles.map((article) => (
+            <ArticleCard
+              title={article.title}
+              description={article.description}
+              link={`/articles/${article.slug.current}/`}
+              image={
+                article.image
+                  ? urlForImage(article.image)?.width(550).height(310).url()
+                  : undefined
+              }
+              category={article.category ?? "Other"}
+            />
+          ))
+        }
+      </div>
+    </section>
+  </PageContainer>
+</BaseLayout>

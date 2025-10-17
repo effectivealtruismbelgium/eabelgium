@@ -1,0 +1,73 @@
+---
+// Import the global.css file here so that it is included on
+// all pages through the use of the <BaseHead /> component.
+import type { ImageMetadata } from "astro";
+import { SEO, type Props as SeoProps } from "astro-seo";
+import FallbackImage from "../assets/og-image.jpg";
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+  image?: ImageMetadata;
+  imageUrl?: string;
+  ogType?: "website" | "article";
+  seoProps?: SeoProps;
+}
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+const {
+  title,
+  description,
+  image = FallbackImage,
+  imageUrl,
+  ogType = "website",
+  seoProps,
+} = Astro.props;
+
+const imageUrlValue = imageUrl ?? new URL(image.src, Astro.url).toString();
+---
+
+<head>
+  <!-- Global Metadata -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="sitemap" href="/sitemap-index.xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap"
+    rel="stylesheet"
+  />
+  <meta name="generator" content={Astro.generator} />
+
+  <SEO
+    title={title}
+    description={description}
+    openGraph={{
+      basic: {
+        title: title,
+        type: ogType,
+        image: imageUrlValue,
+      },
+    }}
+    extend={{
+      // extending the default link tags
+      link: [{ rel: "icon", href: "/favicon.ico" }],
+      // extending the default meta tags
+      meta: [
+        { name: "twitter:image", content: imageUrlValue },
+        { name: "twitter:title", content: title },
+        { name: "twitter:description", content: description },
+      ],
+    }}
+    {...seoProps}
+  />
+
+  <script
+    defer
+    src="https://cloud.umami.is/script.js"
+    data-website-id="251d9633-c192-4416-969a-e49dd9d8fd93"></script>
+</head>

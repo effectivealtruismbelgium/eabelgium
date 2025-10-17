@@ -1,0 +1,51 @@
+---
+import { Image } from "astro:assets";
+import heroGallery from "../assets/hero-gallery.png";
+import ButtonLink from "./core/ButtonLink.astro";
+import PageTitle from "./core/PageTitle.astro";
+import { Picture } from "astro:assets";
+---
+
+<!-- Hero Section -->
+<section
+  class="border-base-border relative overflow-hidden border-b bg-[url('/topography.svg')] bg-center bg-repeat"
+>
+  <div
+    class="from-primary-200/40 via-base-100/30 to-secondary-200/40 pointer-events-none absolute inset-0 -z-10 bg-gradient-to-br"
+  >
+  </div>
+
+  <div class="mx-auto max-w-5xl px-8">
+    <div class="gap flex flex-col items-center md:flex-row md:gap-16">
+      <div class="flex-1 space-y-6 py-12">
+        <PageTitle>
+          Find the best way to
+          <span
+            class="from-primary-600 to-primary-500 bg-gradient-to-r bg-clip-text text-transparent"
+          >
+            help others
+          </span>
+        </PageTitle>
+        <p class="text-base-600 text-xl leading-relaxed">
+          We are a community of people who use evidence and reason to tackle the
+          world's most pressing problems effectively.
+        </p>
+
+        <ButtonLink href="/get-involved/" variant="primary" size="large">
+          Get involved
+        </ButtonLink>
+      </div>
+
+      <div class="border-base-border w-full flex-1">
+        <Picture
+          src={heroGallery}
+          fetchpriority="high"
+          loading="eager"
+          width={1000}
+          alt="Hero gallery"
+          class="mx-auto h-72 w-full max-w-md object-cover object-top px-4 md:-my-8 md:h-auto md:max-w-none md:object-center"
+        />
+      </div>
+    </div>
+  </div>
+</section>
