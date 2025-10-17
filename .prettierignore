@@ -1,0 +1,6 @@
+src/sanity/sanity.types.ts
+public
+.vscode
+.cursor
+.astro
+package-lock.json

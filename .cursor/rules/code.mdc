@@ -1,0 +1,37 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Code
+
+- Use Tailwind CSS for all styling.
+- Use `--color-primary-*`, `--color-secondary-*`, `--color-base-*`, ... custom classes over tailwind's default classes.
+- Extract reusable UI sections into components.
+- Reuse components whenever possible.
+- Only use React when necessary (interactive islands). So only <10% of the time.
+- Keep files small and focused. One component per file.
+- Write concise commit messages.
+- Use the Icon component from astro-icon/components for icons and the material design icons collection (mdi:)
+
+## Project structure
+
+### 🔧 **Core Files & Folders**
+
+- **`src/`** *(required)*: Your site's source code
+
+  - `pages/` *(required)*: Routes of your site (e.g. `index.astro` → `/`), can also be Markdown/MDX
+
+  - `components/`: Reusable UI components (Astro, React, etc.)
+
+  - `layouts/`: Page templates using `<slot />` (e.g. `BaseLayout.astro`)
+
+  - `styles/`: CSS/Sass files (e.g. `global.css`)
+
+  - `content/` or other subfolders: Markdown/MDX content (e.g. blog posts)
+
+  - `assets/`: Images to be processed/optimized by Astro and other  
+
+- **`public/`**: Static files served as-is (e.g. `favicon.svg`, `robots.txt`)
+
+  - ⚠️ Files here are **not optimized or bundled**

@@ -1,0 +1,43 @@
+media:
+  input: public
+  output: /
+content:
+  - name: articles
+    label: Articles
+    type: collection
+    path: src/content/articles
+    view:
+      fields: [title, pinned, pubDate, category]
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - { name: description, label: Description, type: string, required: true }
+      - { name: pubDate, label: Publication Date, type: date, required: true }
+      - { name: updatedDate, label: Updated Date, type: date }
+      - { name: coverImage, label: Cover Image, type: image }
+      - { name: coverImageAlt, label: Cover Image Alt Text, type: string }
+      - { name: coverImageCredit, label: Cover Image Credit, type: string }
+      - { name: category, label: Category, type: string }
+      - { name: pinned, label: Pinned, type: boolean }
+      - { name: author, label: Author, type: string, hint: "Team member ID" }
+      - { name: body, label: Body, type: rich-text }
+
+  - name: groups
+    label: Groups
+    type: collection
+    path: src/content/groups
+    view:
+      fields: [title, location, featured]
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - { name: description, label: Description, type: string, required: true }
+      - { name: location, label: Location, type: string, required: true }
+      - { name: contactEmail, label: Contact Email, type: string }
+      - { name: lumaUrl, label: Luma URL, type: string }
+      - { name: facebookUrl, label: Facebook URL, type: string }
+      - { name: coverImage, label: Cover Image, type: image }
+      - { name: coverImageAlt, label: Cover Image Alt Text, type: string }
+      - { name: coverImageCredit, label: Cover Image Credit, type: string }
+      - { name: coordinators, label: Coordinators, type: string, list: true }
+      - { name: established, label: Established Date, type: date }
+      - { name: featured, label: Featured, type: boolean }
+      - { name: body, label: Body, type: rich-text }
