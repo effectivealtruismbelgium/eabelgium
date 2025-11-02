@@ -15,3 +15,4 @@ export const WHATSAPP_URL = "https://eabelgium.link/whatsapp";
 export const EMAIL_URL = `mailto:${EMAIL_ADDRESS}`;
 export const WELCOME_FORM_URL =
   "https://airtable.com/apph3FyYT8oFyHzQs/paghf21YhbZ2tVwWd/form";
+export const EA_SUMMIT_BRUSSELS_URL = "https://summit.eabrussels.org/";
