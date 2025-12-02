@@ -5,9 +5,15 @@ interface Props {
   message: string;
   link: string;
   linkText?: string;
+  external?: boolean;
 }
 
-const { message, link, linkText = "Learn more" } = Astro.props;
+const {
+  message,
+  link,
+  linkText = "Learn more",
+  external = false,
+} = Astro.props;
 ---
 
 <div
@@ -23,6 +29,8 @@ const { message, link, linkText = "Learn more" } = Astro.props;
           <a
             href={link}
             class="hover:decoration-secondary-400 ml-2 underline underline-offset-2 transition-colors"
+            target={external ? "_blank" : "_self"}
+            rel={external ? "noopener noreferrer" : undefined}
           >
             {linkText} →
           </a>
