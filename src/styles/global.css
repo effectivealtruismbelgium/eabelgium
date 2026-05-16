@@ -41,7 +41,7 @@
   --color-praxis-green-900: #0b5728;
   --color-praxis-green-950: #043817;
 
-  --color-background: #fffcf9;
+  --color-background: #fefcfb;
   --color-background-primary: #d9e9ea;
   --color-surface: var(--color-white);
   --color-base-border: var(--color-zinc-300);
@@ -92,6 +92,8 @@
   --color-tertiary-800: var(--color-praxis-green-800);
   --color-tertiary-900: var(--color-praxis-green-900);
   --color-tertiary-950: var(--color-praxis-green-950);
+
+  --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.03);
 }
 
 @layer base {
