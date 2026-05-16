@@ -21,7 +21,7 @@ const {
 } = Astro.props;
 
 const isText = variant === "text";
-const baseClasses = `w-fit inline-flex flex-row justify-center items-center rounded-lg transition-all text-center ${isText ? "" : "hover:scale-105"}`;
+const baseClasses = `w-fit inline-flex flex-row justify-center items-center rounded-lg transition-all text-center`;
 
 const sizeClasses = {
   small: `text-base font-medium gap-1  ${isText ? "" : "px-4 py-2"}`,
@@ -32,7 +32,8 @@ const sizeClasses = {
 const variantClasses = {
   primary:
     "bg-primary-600 hover:bg-primary-700 text-white shadow-sm hover:shadow-md",
-  neutral: "bg-surface text-base-800  bg-surface border-1 border-base-border",
+  neutral:
+    "bg-surface text-base-800 border border-base-border hover:bg-base-50 hover:border-base-400 hover:shadow-sm",
   text: "text-primary-600 hover:underline bg-transparent",
 };
 

@@ -15,9 +15,9 @@ const {
   external = false,
 } = Astro.props;
 
-const baseClasses = "bg-white border border-base-border rounded-lg";
+const baseClasses = "bg-white border border-base-border rounded-lg shadow-sm";
 const hoverClasses = hover
-  ? "hover:ring-2 hover:ring-base-200/50 transition-all"
+  ? "hover:shadow-md hover:border-base-300 transition-all"
   : "";
 const paddingNumber = typeof padding === "number" ? padding : 6;
 const paddingClasses = padding ? `p-${paddingNumber}` : "";

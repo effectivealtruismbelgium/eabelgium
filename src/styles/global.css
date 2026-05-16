@@ -93,3 +93,19 @@
   --color-tertiary-900: var(--color-praxis-green-900);
   --color-tertiary-950: var(--color-praxis-green-950);
 }
+
+@layer base {
+  body {
+    line-height: 1.7;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+}
