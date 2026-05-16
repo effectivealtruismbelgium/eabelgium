@@ -27,12 +27,11 @@ export async function fetchOne<T extends keyof ReturnTypes>(
 
 export async function getStaticPathsForType(
   type: keyof ReturnTypes,
-  astroParams: any,
 ): Promise<{ params: { slug: string } }[]> {
   const SLUGS_QUERY = `*[_type == "${type}" && defined(slug.current)]{
     "params": {"slug": slug.current}
   }`;
-  return await sanityClient.fetch(SLUGS_QUERY, astroParams);
+  return await sanityClient.fetch(SLUGS_QUERY);
 }
 
 export async function fetchAll<T extends keyof ReturnTypes>(

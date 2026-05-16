@@ -5,7 +5,7 @@ import { urlForImage } from "../../sanity/lib/url-for-image";
 import { fetchOne, getStaticPathsForType } from "../../sanity/query";
 
 export async function getStaticPaths(): Promise<{ params: { slug: string } }> {
-  return await getStaticPathsForType("article", Astro.params);
+  return await getStaticPathsForType("article");
 }
 
 const article = await fetchOne("article", Astro.params);

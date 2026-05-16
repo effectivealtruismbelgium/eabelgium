@@ -4,7 +4,7 @@ import GroupLayout from "../../layouts/GroupLayout.astro";
 import { fetchOne, getStaticPathsForType } from "../../sanity/query";
 
 export async function getStaticPaths(): Promise<{ params: { slug: string } }> {
-  return await getStaticPathsForType("localGroup", Astro.params);
+  return await getStaticPathsForType("localGroup");
 }
 const group = await fetchOne("localGroup", Astro.params);
 ---
