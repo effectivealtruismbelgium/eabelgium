@@ -10,6 +10,7 @@ type BaseProps = {
   title: string;
   description: string;
   lastUpdated?: Date;
+  noindex?: boolean;
 };
 
 type Props =
@@ -18,11 +19,15 @@ type Props =
       frontmatter: BaseProps;
     };
 
-const { title, description, lastUpdated } =
+const { title, description, lastUpdated, noindex } =
   "frontmatter" in Astro.props ? Astro.props.frontmatter : Astro.props;
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout
+  title={title}
+  description={description}
+  seoProps={noindex ? { noindex: true } : undefined}
+>
   <PageContainer>
     <PageTitle center class="mb-12 px-4">{title}</PageTitle>
     {
