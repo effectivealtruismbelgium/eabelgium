@@ -1,0 +1,9 @@
+name: EA Funds
+program: Animal Welfare Fund
+description: Reduces animal suffering worldwide by funding the most effective ways to help the most animals.
+causeArea: animal-welfare
+logo: ../../assets/charities/ea-animal-welfare-fund.png
+website: https://funds.effectivealtruism.org/funds/animal-welfare
+recommendedBy: Giving What We Can
+isTaxDeductible: false
+order: 12

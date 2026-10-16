@@ -1,0 +1,9 @@
+name: StrongMinds
+program: Group therapy for depression
+description: Provides group interpersonal psychotherapy to treat depression in women and adolescents in Africa. Their community-based approach makes mental health treatment accessible and affordable.
+causeArea: global-health-development
+logo: ../../assets/charities/strongminds.png
+website: https://strongminds.org/
+isTaxDeductible: true
+donationPartner: hia
+order: 5

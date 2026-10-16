@@ -1,0 +1,8 @@
+name: Eight
+program: Unconditional cash transfers
+description: Provides monthly cash transfers to families in Uganda, DRC, and Côte d’Ivoire, enabling them to improve health, education, housing, and livelihoods.
+causeArea: global-health-development
+logo: ../../assets/charities/eight.png
+website: https://www.eight.world/
+isTaxDeductible: true
+order: 8

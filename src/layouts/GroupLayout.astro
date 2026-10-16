@@ -4,43 +4,39 @@ import { Image } from "astro:assets";
 import CardContainer from "../components/core/CardContainer.astro";
 import PageTitle from "../components/core/PageTitle.astro";
 import ProseWrapper from "../components/ProseWrapper.astro";
-import { urlForImage } from "../sanity/lib/url-for-image";
-import type { LocalGroup } from "../sanity/sanity.types";
+import type { CollectionEntry } from "astro:content";
 import BaseLayout from "./BaseLayout.astro";
 import PageContainer from "../components/core/PageContainer.astro";
 
 type Props = {
-  group: LocalGroup;
+  group: CollectionEntry<"groups">["data"];
 };
 
 const { group } = Astro.props;
-
-const imageUrl = group.image
-  ? urlForImage(group.image)?.width(1000).height(310).url()
-  : undefined;
 
 const contactEmail = undefined; // TODO: add contact email
 ---
 
 <BaseLayout
-  title={group.title || ""}
-  description={group.description || ""}
-  imageUrl={imageUrl}
+  title={group.title}
+  description={group.description}
+  image={group.coverImage}
 >
   <PageContainer>
     {
-      imageUrl && (
+      group.coverImage && (
         <div class="mb-8">
           <Image
-            src={imageUrl}
-            alt={group.imageAlt || group.title || null}
+            src={group.coverImage}
+            alt={group.coverImageAlt || group.title}
             width={1000}
             height={400}
+            fit="cover"
             class="h-64 w-full rounded-lg object-cover shadow-lg md:h-80"
           />
-          {group.imageCredit && (
+          {group.coverImageCredit && (
             <p class="text-base-500 mt-2 text-center text-xs italic">
-              {group.imageCredit}
+              {group.coverImageCredit}
             </p>
           )}
         </div>

@@ -1,4 +1,6 @@
 ---
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
 import { Icon } from "astro-icon/components";
 import ProseWrapper from "../../components/ProseWrapper.astro";
 import QrCodeGenerator from "../../components/charity/QrCodeGenerator";
@@ -7,14 +9,16 @@ import ButtonLink from "../../components/core/ButtonLink.astro";
 import CardContainer from "../../components/core/CardContainer.astro";
 import Pill from "../../components/core/Pill.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { urlForImage } from "../../sanity/lib/url-for-image";
-import { fetchOne, getStaticPathsForType } from "../../sanity/query";
 
-export async function getStaticPaths(): Promise<{ params: { slug: string } }> {
-  return await getStaticPathsForType("charity");
+export async function getStaticPaths() {
+  const charities = await getCollection("charities");
+  return charities.map((charity) => ({
+    params: { slug: charity.id },
+    props: { charity },
+  }));
 }
 
-const charity = await fetchOne("charity", Astro.params);
+const { charity } = Astro.props;
 
 const {
   name,
@@ -26,14 +30,10 @@ const {
   isTaxDeductible,
   donationPartner,
   recommendedBy,
-} = charity;
+} = charity.data;
 ---
 
-<BaseLayout
-  title={name || ""}
-  description={description || ""}
-  imageUrl={logo ? urlForImage(logo)?.width(512).height(512).url() : undefined}
->
+<BaseLayout title={name} description={description} image={logo}>
   <div class="mx-auto max-w-5xl px-4 py-6 sm:px-6 sm:py-8 md:px-8 md:py-10">
     <!-- Back link -->
     <div class="mb-8">
@@ -56,12 +56,13 @@ const {
         >
           {
             logo && (
-              <img
-                src={urlForImage(logo)?.width(256).height(256).url()}
+              <Image
+                src={logo}
                 alt={`${name} logo`}
                 class="h-fit w-fit object-contain transition-transform duration-300 group-hover:scale-105"
                 width={256}
                 height={256}
+                fit="cover"
               />
             )
           }
@@ -139,7 +140,7 @@ const {
               client:load
               defaultAmount={25}
               reference={kbfBankReference}
-              charityName={name || ""}
+              charityName={name}
             />
           </CardContainer>
         )

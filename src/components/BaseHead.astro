@@ -4,6 +4,7 @@
 import type { ImageMetadata } from "astro";
 import { SEO, type Props as SeoProps } from "astro-seo";
 import FallbackImage from "../assets/og-image.jpg";
+import { getOgImageUrl } from "../lib/content";
 import "../styles/global.css";
 
 interface Props {
@@ -20,13 +21,17 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const {
   title,
   description,
-  image = FallbackImage,
+  image,
   imageUrl,
   ogType = "website",
   seoProps,
 } = Astro.props;
 
-const imageUrlValue = imageUrl ?? new URL(image.src, Astro.url).toString();
+const imageUrlValue =
+  imageUrl ??
+  (image
+    ? await getOgImageUrl(image, Astro.url)
+    : new URL(FallbackImage.src, Astro.url).toString());
 ---
 
 <head>

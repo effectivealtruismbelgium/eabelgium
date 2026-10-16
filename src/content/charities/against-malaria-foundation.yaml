@@ -1,0 +1,10 @@
+name: Against Malaria Foundation
+program: Bednets to prevent malaria
+description: Distributes long-lasting insecticidal nets to protect families from malaria-carrying mosquitoes in sub-Saharan Africa.
+causeArea: global-health-development
+logo: ../../assets/charities/against-malaria-foundation.jpg
+website: https://www.againstmalaria.com
+recommendedBy: GiveWell
+isTaxDeductible: true
+donationPartner: hia
+order: 1

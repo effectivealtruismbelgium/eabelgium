@@ -1,0 +1,10 @@
+name: The Humane League
+program: Corporate cage-free campaigns
+description: Works with corporations to adopt higher welfare standards for farm animals. Their campaigns have secured commitments affecting hundreds of millions of animals worldwide.
+causeArea: animal-welfare
+logo: ../../assets/charities/the-humane-league.jpg
+website: https://thehumaneleague.org
+recommendedBy: Animal Charity Evaluators
+isTaxDeductible: true
+donationPartner: hia
+order: 10

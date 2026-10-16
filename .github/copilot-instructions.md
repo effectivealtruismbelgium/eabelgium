@@ -1,19 +1,18 @@
 # EA Belgium Website - Copilot Instructions
 
-This is the website for Effective Altruism Belgium, built with Astro 5, Tailwind CSS 4, and Sanity CMS.
+This is the website for Effective Altruism Belgium, built with Astro, Tailwind CSS 4, and Astro content collections.
 
 ## Architecture & Tech Stack
 
 **Astro Static Site Generator** with hybrid routing:
 
 - Static pages for most content (`src/pages/`)
-- Dynamic routes for CMS content (`[...slug].astro` patterns)
+- Dynamic routes for content collections (`[...slug].astro` patterns)
 - React components used sparingly for interactive features only (~10% of components)
-- Sanity CMS for structured content (articles, charities, team members, local groups)
+- Content collections in `src/content/` (Markdown/YAML) for articles, charities, team members, local groups
 
 **Key Dependencies:**
 
-- `@sanity/astro` integration for CMS data fetching
 - `astro-icon` with Material Design Icons (`mdi:` collection)
 - `qrcode.react` for donation QR codes
 - `sepa-payment-qr-code` for European banking integration
@@ -28,7 +27,6 @@ This is the website for Effective Altruism Belgium, built with Astro 5, Tailwind
 - `CardContainer.astro` - Standard card layout with hover states
 - `ButtonLink.astro` - Consistent button styling
 - `PageContainer.astro` - Page-level layout wrapper
-- `PortableText.astro` - Renders Sanity rich text content
 
 **Component Structure:**
 
@@ -61,26 +59,23 @@ type Props = {
 
 ## Content Management
 
-**Sanity CMS Integration:**
+**Content collections:**
 
-- Content types: `Article`, `Charity`, `LocalGroup`, `TeamMember`, `CauseArea`
-- Query helper functions in `src/sanity/query.ts`:
-  ```typescript
-  fetchOne("charity", Astro.params); // Single item by slug
-  fetchAll("charity"); // All items of type
-  getStaticPathsForType("charity"); // Static paths for [slug] routes
-  ```
+- Collections defined in `src/content.config.ts`: `articles`, `groups`, `pages` (Markdown), `charities`, `causeAreas`, `team` (YAML)
+- Files live in `src/content/<collection>/`; the filename is the entry id and URL slug
+- Images in `src/assets/<collection>/`, referenced with relative paths and validated with `image()`
+- Query helpers in `src/lib/content.ts` (`getSortedArticles`, `getSortedGroups`, `getSortedTeam`, `getCauseAreasWithCharities`)
 
 **Dynamic Routing Pattern:**
 
-- Use `[...slug].astro` for CMS-driven pages
-- `getStaticPaths()` must call `getStaticPathsForType()`
-- Access data with `fetchOne()` in page frontmatter
+- Use `[...slug].astro`
+- `getStaticPaths()` calls `getCollection()` and passes each entry as a prop
+- Render bodies with `const { Content } = await render(entry)`
 
 **Content Types:**
 
 - Static pages: `.astro`, `.mdx`, `.md` in `src/pages/`
-- CMS pages: Dynamic routes fetching from Sanity
+- Collection pages: Dynamic routes rendering entries from `src/content/`
 - Images: `src/assets/` for processed images, `public/` for static files
 
 ## Development Workflows
@@ -122,20 +117,20 @@ src/
 │   └── [Feature].astro # Feature components
 ├── pages/
 │   ├── [topic]/       # Content sections
-│   └── [...slug].astro # CMS dynamic routes
-├── sanity/            # CMS integration
+│   └── [...slug].astro # Generic pages from the `pages` collection
+├── content/           # Content collections (Markdown/YAML)
+├── lib/content.ts     # Collection query helpers
 ├── layouts/           # Page templates
 └── styles/global.css  # Design tokens & base styles
 ```
 
 ## Common Tasks
 
-**Adding a new CMS content type:**
+**Adding a new content collection:**
 
-1. Update `sanity.types.ts` with TypeScript interface
-2. Add to `ReturnTypes` in `src/sanity/query.ts`
-3. Create `[...slug].astro` page template
-4. Use `getStaticPathsForType()` and `fetchOne()` pattern
+1. Define the collection and its schema in `src/content.config.ts`
+2. Add entries in `src/content/<collection>/`
+3. Create a `[...slug].astro` page template using `getCollection()` and `render()`
 
 **Creating interactive components:**
 

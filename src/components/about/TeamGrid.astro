@@ -1,10 +1,10 @@
 ---
-import { fetchAllOrdered } from "../../sanity/query";
+import { getSortedTeam } from "../../lib/content";
 import TeamMember from "./TeamMember.astro";
 
-const teamMembers = await fetchAllOrdered("teamMember");
+const teamMembers = await getSortedTeam();
 ---
 
 <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-  {teamMembers.map((member) => <TeamMember data={member} />)}
+  {teamMembers.map((member) => <TeamMember data={member.data} />)}
 </div>

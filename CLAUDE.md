@@ -7,7 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 **Astro 5** static site generator with:
 
 - **Tailwind CSS 4** with custom design tokens
-- **Sanity CMS** for headless content management
+- **Astro content collections** (Markdown/YAML in `src/content/`) for all content
 - **React** (used sparingly, ~10% of components for interactive features only)
 - **Vercel** deployment platform
 
@@ -29,39 +29,29 @@ npm run format       # Format code with Prettier
 
 **Astro-first approach**: Prefer `.astro` components over React (`.tsx`) unless interactivity is required. React should only be used for interactive islands like forms or copy buttons.
 
-### Sanity CMS Integration
+### Content collections
 
-Content types managed in Sanity:
+All content lives in the repo as [Astro content collections](https://docs.astro.build/en/guides/content-collections/), defined in `src/content.config.ts`. The filename (without extension) is the entry `id` and URL slug.
 
-- `Article` - Blog posts and educational content
-- `Charity` - Vetted organisations with donation info
-- `LocalGroup` - Community chapters across Belgium
-- `TeamMember` - Organisation leadership
-- `CauseArea` - EA focus areas
-- `Page` - General pages
+| Collection   | Location                         | Format   | Route                |
+| ------------ | -------------------------------- | -------- | -------------------- |
+| `articles`   | `src/content/articles/*.md`      | Markdown | `/articles/[slug]/`  |
+| `groups`     | `src/content/groups/*.md`        | Markdown | `/groups/[slug]/`    |
+| `pages`      | `src/content/pages/*.md`         | Markdown | `/[slug]/`           |
+| `charities`  | `src/content/charities/*.yaml`   | YAML     | `/charities/[slug]/` |
+| `causeAreas` | `src/content/cause-areas/*.yaml` | YAML     | (charities grouping) |
+| `team`       | `src/content/team/*.yaml`        | YAML     | (about page)         |
 
-**Query helper functions** (`src/sanity/query.ts`):
-
-```typescript
-fetchOne("charity", Astro.params); // Single item by slug
-fetchAll("charity"); // All items of type
-fetchAllOrdered("charity"); // All items ordered by orderRank
-getStaticPathsForType("charity", Astro.params); // For getStaticPaths()
-fetchAllCauseAreasWithCharities(); // Special query with references
-```
+- Images live in `src/assets/<collection>/` and are referenced with a relative path (e.g. `coverImage: ../../assets/articles/donating.jpg`). They are optimised at build time with `astro:assets` (`<Image>` / `getImage`).
+- `groups`, `charities`, `causeAreas` and `team` have an `order` field (ascending) controlling display order.
+- Each charity references a cause area by its id (`causeArea: global-health-development`).
+- Query helpers in `src/lib/content.ts` (`getSortedArticles`, `getSortedGroups`, `getSortedTeam`, `getCauseAreasWithCharities`, `getOgImageUrl`).
 
 **Dynamic routing pattern**:
 
-1. Use `[...slug].astro` for CMS-driven pages
-2. In `getStaticPaths()`, call `getStaticPathsForType()`
-3. Fetch data with `fetchOne()` in page frontmatter
-4. Example: `src/pages/[...slug].astro` for generic pages
-
-**Adding a new content type**:
-
-1. Generate types with `sanity typegen generate` (updates `src/sanity/sanity.types.ts`)
-2. Add to `ReturnTypes` in `src/sanity/query.ts`
-3. Create corresponding `[...slug].astro` page template
+1. Use `[...slug].astro`
+2. In `getStaticPaths()`, call `getCollection()` and pass each entry as a prop
+3. Render the body with `const { Content } = await render(entry)`
 
 ### Styling System
 
@@ -84,7 +74,6 @@ Reusable UI primitives in `src/components/core/`:
 - `ButtonLink.astro` - Consistent button styling
 - `PageContainer.astro` - Page-level layout wrapper
 - `PageTitle.astro` - Page title component
-- `PortableText.astro` - Renders Sanity rich text content
 - `Pill.astro` - Tag/label component
 
 ### Icon Usage
@@ -106,7 +95,7 @@ src/
 │   ├── about/         # About page components
 │   └── [Feature].astro
 ├── pages/             # Routes (static and dynamic)
-│   ├── [...slug].astro # CMS-driven generic pages
+│   ├── [...slug].astro # Generic pages from the `pages` collection
 │   ├── articles/
 │   │   ├── [...slug].astro
 │   │   └── index.astro
@@ -116,11 +105,10 @@ src/
 │       ├── [...slug].astro
 │       └── index.astro
 ├── layouts/           # Page templates with <slot />
-├── sanity/            # CMS integration
-│   ├── query.ts       # Helper functions
-│   ├── sanity.types.ts # Generated TypeScript types
-│   └── lib/
-│       └── url-for-image.ts
+├── content/           # Content collections (Markdown/YAML)
+├── content.config.ts  # Collection schemas
+├── lib/
+│   └── content.ts     # Collection query helpers
 ├── styles/
 │   └── global.css     # Design tokens and base styles
 ├── assets/            # Images processed by Astro

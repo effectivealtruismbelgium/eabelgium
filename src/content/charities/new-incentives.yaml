@@ -1,0 +1,10 @@
+name: New Incentives
+program: Cash transfers for immunisation
+description: Provides cash incentives to families in Nigeria for completing their children's vaccination schedules. This approach significantly increases immunisation rates in underserved communities.
+causeArea: global-health-development
+logo: ../../assets/charities/new-incentives.jpg
+website: https://www.newincentives.org/
+recommendedBy: GiveWell
+isTaxDeductible: true
+donationPartner: hia
+order: 4
