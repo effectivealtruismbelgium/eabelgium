@@ -6,7 +6,7 @@ The official website for [Effective Altruism Belgium](https://eabelgium.org), bu
 
 - **[Astro](https://astro.build/)** - Static site generator with hybrid routing
 - **[Tailwind CSS](https://tailwindcss.com/)** - Utility-first CSS framework with custom design tokens
-- **[Sanity CMS](https://www.sanity.io/)** - Headless CMS for dynamic content management
+- **[Astro content collections](https://docs.astro.build/en/guides/content-collections/)** - All content stored as Markdown/YAML in the repo
 - **[React](https://react.dev/)** - Interactive components (used sparingly)
 - **[Vercel](https://vercel.com/)** - Hosting and deployment platform
 
@@ -18,9 +18,11 @@ src/
 │   ├── core/          # Base components (CardContainer, ButtonLink, etc.)
 │   └── [feature]/     # Feature-specific components
 ├── pages/             # Static and dynamic routes
-│   └── [...slug].astro # CMS-driven dynamic pages
+│   └── [...slug].astro # Generic pages from the `pages` collection
 ├── layouts/           # Page templates
-├── sanity/            # CMS integration and queries
+├── content/           # Content collections (Markdown/YAML)
+├── content.config.ts  # Collection schemas
+├── lib/content.ts     # Collection query helpers
 └── styles/            # Global styles and design tokens
 ```
 
@@ -64,15 +66,18 @@ src/
 
 ## Content Management
 
-Content is managed through [Sanity CMS](https://www.sanity.io/). The CMS handles:
+All content lives in this repository as [Astro content collections](https://docs.astro.build/en/guides/content-collections/) in `src/content/`, with schemas in `src/content.config.ts`:
 
-- **Articles** - Blog posts and educational content
-- **Charities** - Vetted organisations for donations
-- **Local Groups** - Community chapters across Belgium
-- **Team Members** - Organisation leadership and volunteers
-- **Cause Areas** - Focus areas within effective altruism
+- **Articles** (`src/content/articles/*.md`) - Blog posts and educational content
+- **Local groups** (`src/content/groups/*.md`) - Community chapters across Belgium
+- **Pages** (`src/content/pages/*.md`) - Generic pages such as the privacy policy
+- **Charities** (`src/content/charities/*.yaml`) - Vetted organisations for donations
+- **Cause areas** (`src/content/cause-areas/*.yaml`) - Focus areas used to group charities
+- **Team members** (`src/content/team/*.yaml`) - Organisation leadership and volunteers
 
-Dynamic pages are generated using Astro's `[...slug].astro` pattern with data fetched from Sanity.
+The filename is the URL slug. Images go in `src/assets/<collection>/` and are referenced with a relative path, e.g. `coverImage: ../../assets/articles/donating.jpg`. Entries in groups, charities, cause areas and team are sorted by their `order` field.
+
+To edit content, change the files directly. Every change to `main` triggers a new deployment.
 
 ## Deployment
 

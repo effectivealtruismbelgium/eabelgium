@@ -1,5 +1,5 @@
 ---
-import { Image, Picture } from "astro:assets";
+import { Image } from "astro:assets";
 import CardContainer from "./core/CardContainer.astro";
 import ButtonLink from "./core/ButtonLink.astro";
 import { Icon } from "astro-icon/components";
@@ -7,7 +7,7 @@ import { Icon } from "astro-icon/components";
 type Props = {
   title: string;
   description: string;
-  image?: string;
+  image?: ImageMetadata;
   link: string;
   category: string;
 };
@@ -21,9 +21,12 @@ const { title, description, image, link, category } = Astro.props;
   >
     {
       image && (
-        <img
+        <Image
           src={image}
           alt={title}
+          width={550}
+          height={310}
+          fit="cover"
           class="aspect-video h-full w-full object-cover"
         />
       )

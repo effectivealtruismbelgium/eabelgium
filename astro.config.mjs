@@ -14,23 +14,10 @@ import robotsTxt from "astro-robots-txt";
 
 import react from "@astrojs/react";
 
-import sanity from "@sanity/astro";
-
 // https://astro.build/config
 export default defineConfig({
   site: "https://eabelgium.org",
-  integrations: [
-    mdx(),
-    sitemap(),
-    icon(),
-    robotsTxt(),
-    react(),
-    sanity({
-      projectId: "37spwj8l",
-      dataset: "production",
-      useCdn: false, // for static builds
-    }),
-  ],
+  integrations: [mdx(), sitemap(), icon(), robotsTxt(), react()],
   markdown: {
     remarkPlugins: [[remarkToc, { heading: "toc", maxDepth: 3 }]],
     rehypePlugins: [

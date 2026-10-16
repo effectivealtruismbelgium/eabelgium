@@ -1,7 +1,5 @@
 ---
 import { Image } from "astro:assets";
-import type { CollectionEntry } from "astro:content";
-import { getCollection } from "astro:content";
 import BaseHead from "../components/BaseHead.astro";
 import Footer from "../components/Footer.astro";
 import FormattedDate from "../components/FormattedDate.astro";
@@ -11,17 +9,18 @@ import { SITE_TITLE } from "../consts";
 import LatestArticlesSection from "../components/home/LatestArticlesSection.astro";
 import NewsletterSection from "../components/home/NewsletterSection.astro";
 import PageContainer from "../components/core/PageContainer.astro";
+import { getOgImageUrl } from "../lib/content";
 
 type Props = {
   id: string;
   title: string;
   description: string;
   pubDate: Date;
-  updatedDate: Date;
-  coverImage?: string;
+  updatedDate?: Date;
+  coverImage?: ImageMetadata;
   coverImageAlt?: string;
   coverImageCredit?: string;
-  category: string;
+  category?: string;
 };
 
 const {
@@ -37,19 +36,23 @@ const {
 } = Astro.props;
 
 const pageTitle = `${title} | ${SITE_TITLE}`;
+const ogImageUrl = coverImage
+  ? await getOgImageUrl(coverImage, Astro.url)
+  : undefined;
 ---
 
 <html lang="en">
   <BaseHead
     title={pageTitle}
     description={description}
+    imageUrl={ogImageUrl}
     ogType="article"
     seoProps={{
       openGraph: {
         basic: {
           title: title,
           type: "article",
-          image: coverImage ?? "",
+          image: ogImageUrl ?? "",
         },
         article: {
           publishedTime: pubDate?.toISOString(),
@@ -70,9 +73,12 @@ const pageTitle = `${title} | ${SITE_TITLE}`;
           {
             coverImage && (
               <div class="not-prose my-8">
-                <img
+                <Image
                   src={coverImage}
                   alt={coverImageAlt || title}
+                  width={1000}
+                  height={400}
+                  fit="cover"
                   class="h-64 w-full rounded-lg object-cover shadow-lg md:h-80"
                 />
                 {coverImageCredit && (

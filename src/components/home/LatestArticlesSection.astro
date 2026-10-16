@@ -1,9 +1,7 @@
 ---
-import type { SanityDocument } from "@sanity/client";
-import { sanityClient } from "sanity:client";
 import ArticleCard from "../ArticleCard.astro";
 import ButtonLink from "../core/ButtonLink.astro";
-import { urlForImage } from "../../sanity/lib/url-for-image";
+import { getSortedArticles } from "../../lib/content";
 
 type Props = {
   currentArticleId?: string;
@@ -12,14 +10,9 @@ type Props = {
 
 const { currentArticleId, maxArticles = 3 } = Astro.props;
 
-const ARTICLES_QUERY = `*[
-  _type == "article"
-  && defined(slug.current)
-  ${currentArticleId ? `&& slug.current != "${currentArticleId}"` : ""}
-]|order(publishedAt desc)[0...${maxArticles}]{_id, title, description, slug, image, category, publishedAt}`;
-
-const latestArticles =
-  await sanityClient.fetch<SanityDocument[]>(ARTICLES_QUERY);
+const latestArticles = (await getSortedArticles())
+  .filter((article) => article.id !== currentArticleId)
+  .slice(0, maxArticles);
 
 const gridClasses = `grid gap-8 mb-8 grid-cols-1 ${maxArticles <= 2 ? "md:grid-cols-2" : "md:grid-cols-2 lg:grid-cols-3"}`;
 ---
@@ -29,15 +22,11 @@ const gridClasses = `grid gap-8 mb-8 grid-cols-1 ${maxArticles <= 2 ? "md:grid-c
     {
       latestArticles.map((article) => (
         <ArticleCard
-          title={article.title}
-          description={article.description}
-          image={
-            article.image
-              ? urlForImage(article.image)?.width(550).height(310).url()
-              : undefined
-          }
-          link={`/articles/${article.slug.current}/`}
-          category={article.category ?? "Article"}
+          title={article.data.title}
+          description={article.data.description}
+          image={article.data.coverImage}
+          link={`/articles/${article.id}/`}
+          category={article.data.category ?? "Article"}
         />
       ))
     }

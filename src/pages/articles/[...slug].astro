@@ -1,30 +1,29 @@
 ---
-import PortableText from "../../components/core/PortableText.astro";
+import { getCollection, render } from "astro:content";
 import ArticleLayout from "../../layouts/ArticleLayout.astro";
-import { urlForImage } from "../../sanity/lib/url-for-image";
-import { fetchOne, getStaticPathsForType } from "../../sanity/query";
 
-export async function getStaticPaths(): Promise<{ params: { slug: string } }> {
-  return await getStaticPathsForType("article");
+export async function getStaticPaths() {
+  const articles = await getCollection("articles");
+  return articles.map((article) => ({
+    params: { slug: article.id },
+    props: { article },
+  }));
 }
 
-const article = await fetchOne("article", Astro.params);
-
-const articleImageUrl = article.image
-  ? urlForImage(article.image)?.width(1000).height(310).url()
-  : null;
+const { article } = Astro.props;
+const { Content } = await render(article);
 ---
 
 <ArticleLayout
-  id={article.slug.current}
-  title={article.title}
-  description={article.description}
-  pubDate={new Date(article.publishedAt)}
-  updatedDate={new Date(article.updatedAt)}
-  coverImage={articleImageUrl ?? undefined}
-  coverImageAlt={article.coverImageAlt}
-  coverImageCredit={article.coverImageCredit}
-  category={article.category}
+  id={article.id}
+  title={article.data.title}
+  description={article.data.description}
+  pubDate={article.data.pubDate}
+  updatedDate={article.data.updatedDate}
+  coverImage={article.data.coverImage}
+  coverImageAlt={article.data.coverImageAlt}
+  coverImageCredit={article.data.coverImageCredit}
+  category={article.data.category}
 >
-  <PortableText value={article.body} />
+  <Content />
 </ArticleLayout>

@@ -1,0 +1,9 @@
+name: EA Funds
+program: Long-Term Future Fund
+description: Supports projects that reduce global catastrophic risks, especially from advanced AI and pandemics, while promoting longtermist ideas to help future generations flourish.
+causeArea: global-catastrophic-risks
+logo: ../../assets/charities/ea-long-term-future-fund.png
+website: https://funds.effectivealtruism.org/funds
+recommendedBy: Giving What We Can
+isTaxDeductible: false
+order: 15

@@ -1,0 +1,10 @@
+name: Unlimit Health
+program: Deworming
+description: Supports national governments to deliver large-scale deworming programs, protecting children from parasitic worm infections and improving long-term health, nutrition, and education outcomes.
+causeArea: global-health-development
+logo: ../../assets/charities/unlimit-health.png
+website: https://unlimithealth.org/
+isTaxDeductible: true
+donationPartner: tge
+kbfBankReference: TGE - GB - Unlimit Health
+order: 6

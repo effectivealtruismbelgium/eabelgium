@@ -1,0 +1,8 @@
+name: ProVeg
+program: Food-system transformation
+description: Promotes a global shift toward plant-based and cultured alternatives through policy, education, and corporate partnerships.
+causeArea: animal-welfare
+logo: ../../assets/charities/proveg.jpg
+website: https://proveg.com/be/
+isTaxDeductible: true
+order: 13

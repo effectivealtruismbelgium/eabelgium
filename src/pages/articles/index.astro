@@ -1,19 +1,11 @@
 ---
-import type { SanityDocument } from "@sanity/client";
-import { sanityClient } from "sanity:client";
 import ArticleCard from "../../components/ArticleCard.astro";
 import PageTitle from "../../components/core/PageTitle.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { urlForImage } from "../../sanity/lib/url-for-image";
 import PageContainer from "../../components/core/PageContainer.astro";
-import { fetchAll } from "../../sanity/query";
+import { getSortedArticles } from "../../lib/content";
 
-const ARTICLES_QUERY = `*[
-  _type == "article"
-  && defined(slug.current)
-]|order(publishedAt desc)`;
-
-const articles = await sanityClient.fetch<SanityDocument[]>(ARTICLES_QUERY);
+const articles = await getSortedArticles();
 ---
 
 <BaseLayout
@@ -29,15 +21,11 @@ const articles = await sanityClient.fetch<SanityDocument[]>(ARTICLES_QUERY);
         {
           articles.map((article) => (
             <ArticleCard
-              title={article.title}
-              description={article.description}
-              link={`/articles/${article.slug.current}/`}
-              image={
-                article.image
-                  ? urlForImage(article.image)?.width(550).height(310).url()
-                  : undefined
-              }
-              category={article.category ?? "Other"}
+              title={article.data.title}
+              description={article.data.description}
+              link={`/articles/${article.id}/`}
+              image={article.data.coverImage}
+              category={article.data.category ?? "Other"}
             />
           ))
         }

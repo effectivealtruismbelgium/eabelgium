@@ -5,10 +5,9 @@ import PageContainer from "../../components/core/PageContainer.astro";
 import PageTitle from "../../components/core/PageTitle.astro";
 import GroupCard from "../../components/GroupCard.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { urlForImage } from "../../sanity/lib/url-for-image";
-import { fetchAllOrdered } from "../../sanity/query";
+import { getSortedGroups } from "../../lib/content";
 
-const groups = await fetchAllOrdered("localGroup");
+const groups = await getSortedGroups();
 ---
 
 <BaseLayout
@@ -32,15 +31,11 @@ const groups = await fetchAllOrdered("localGroup");
         {
           groups.map((group) => (
             <GroupCard
-              title={group.title || ""}
-              description={group.description || ""}
-              image={
-                group.image
-                  ? urlForImage(group.image)?.width(550).height(310).url()
-                  : undefined
-              }
-              imageAlt={group.imageAlt}
-              link={`/groups/${group.slug?.current || ""}/`}
+              title={group.data.title}
+              description={group.data.description}
+              image={group.data.coverImage}
+              imageAlt={group.data.coverImageAlt}
+              link={`/groups/${group.id}/`}
             />
           ))
         }

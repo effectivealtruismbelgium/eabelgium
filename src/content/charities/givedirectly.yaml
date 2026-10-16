@@ -1,0 +1,10 @@
+name: GiveDirectly
+program: Unconditional cash transfers
+description: Sends money directly to people living in poverty via mobile payments. Recipients can spend the money on whatever they need most, from food and medicine to education and business investments.
+causeArea: global-health-development
+logo: ../../assets/charities/givedirectly.jpg
+website: https://www.givedirectly.org/
+isTaxDeductible: true
+donationPartner: tge
+kbfBankReference: TGE - GB - Give Directly
+order: 7

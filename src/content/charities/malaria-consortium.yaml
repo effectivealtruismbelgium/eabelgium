@@ -1,0 +1,11 @@
+name: Malaria Consortium
+program: Seasonal malaria chemoprevention
+description: Provides preventive antimalarial medicines to children during high-transmission seasons.
+causeArea: global-health-development
+logo: ../../assets/charities/malaria-consortium.jpg
+website: https://www.malariaconsortium.org/
+recommendedBy: GiveWell
+isTaxDeductible: true
+donationPartner: tge
+kbfBankReference: TGE - GB - Malaria Consortium
+order: 2

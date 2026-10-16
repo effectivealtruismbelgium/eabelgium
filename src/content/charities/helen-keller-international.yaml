@@ -1,0 +1,10 @@
+name: Helen Keller International
+program: Vitamin A supplementation
+description: Provides vitamin A supplements to young children to prevent blindness and reduce child mortality.
+causeArea: global-health-development
+logo: ../../assets/charities/helen-keller-international.jpg
+website: https://helenkellerintl.org/
+recommendedBy: GiveWell
+isTaxDeductible: true
+donationPartner: hia
+order: 3
